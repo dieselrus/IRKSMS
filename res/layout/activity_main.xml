@@ -1,0 +1,154 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/textColor"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/PhoneNumber"
+                android:textColor="@color/gray"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView1"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@+id/btnContacts"
+                android:background="@xml/rounded_edittext"
+                android:ems="10"
+                android:inputType="phone"
+                android:textColor="@color/gray" >
+
+                <requestFocus />
+            </EditText>
+
+            <ImageButton
+                android:id="@+id/btnFContacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/editPhoneNumber"
+                android:background="@drawable/star_blue" />
+
+            <ImageButton
+                android:id="@+id/btnContacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/editPhoneNumber"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/btnFContacts"
+                android:background="@drawable/contact_blue" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/btnContacts"
+                android:layout_marginTop="5dp"
+                android:text="@string/MessageText"
+                android:textColor="@color/gray" />
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/editMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minLines="4"
+                android:gravity="top|left"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView2"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@+id/btnClean"
+                android:background="@xml/rounded_edittext"
+                android:ems="10"
+                android:isScrollContainer="true" />
+
+            <ImageButton
+                android:id="@+id/btnClean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/editMessage"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/clean_blue" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/editMessage"
+                android:layout_marginTop="5dp"
+                android:text="@string/captcha"
+                android:textColor="@color/gray" />
+
+            <ImageButton
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView3"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/send_blue" />
+
+            <ImageView
+                android:id="@+id/imageCaptcha1"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/editCaptcha1"
+                android:layout_below="@+id/textView3"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/load_blue"
+                android:scaleType="centerCrop" />
+
+            <EditText
+                android:id="@+id/editCaptcha1"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignTop="@+id/btnSend"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/btnSend"
+                android:layout_toRightOf="@+id/imageCaptcha1"
+                android:background="@xml/rounded_edittext"
+                android:ems="10"
+                android:inputType="number" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/admobLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</LinearLayout>
