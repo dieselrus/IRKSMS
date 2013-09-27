@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lView1"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <ScrollView
@@ -114,11 +114,11 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/textView3"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/send_blue" />
+                android:background="@drawable/send_blue2" />
 
             <ImageView
                 android:id="@+id/imageCaptcha1"
-                android:layout_width="120dp"
+                android:layout_width="112dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/editCaptcha1"
                 android:layout_below="@+id/textView3"
@@ -131,8 +131,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_alignTop="@+id/btnSend"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_toLeftOf="@+id/btnSend"
                 android:layout_toRightOf="@+id/imageCaptcha1"
                 android:background="@xml/rounded_edittext"
@@ -140,6 +140,16 @@
                 android:inputType="number" />
         </RelativeLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/txtError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="96dp"
+        android:minLines="2"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
+        android:scrollbars="vertical" />
 
     <LinearLayout
         android:id="@+id/admobLayout"
@@ -149,6 +159,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="5dp"
         android:orientation="vertical" >
+
     </LinearLayout>
 
 </LinearLayout>

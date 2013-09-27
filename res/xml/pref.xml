@@ -14,4 +14,14 @@
 	    android:key="Clean"
 	    android:summary="Очистка изображения пин-кода.(Тестовый режим)"
 	    android:title="Очистка изображения (test)"/>
+	
+	<CheckBoxPreference
+	    android:key="AutoCaptcha"
+	    android:summary="Автораспознование пин-кода.(Тестовый режим)"
+	    android:title="Автораспознование пин-кода (test)"/>
+	
+	<EditTextPreference
+		 android:key="MagigServer"
+		 android:summary="Адрес сервера распознования пин-кода."
+		 android:title="Адрес сервера"/>	
 </PreferenceScreen>

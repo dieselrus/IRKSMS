@@ -271,7 +271,7 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 //   	imgCaptcha.setImageBitmap(result);
 	   
 	   MainActivity.setBitmapCaptcha(result);
-	   
+	   MainActivity.setError("");
 //       imgStatus.setVisibility(View.INVISIBLE);
     // “ничтожить окно диалого
    	//dismissDialog(PROGRESS_DLG_ID);

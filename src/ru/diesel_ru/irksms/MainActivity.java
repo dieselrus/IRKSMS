@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
 	TextView txtPhoneNumber;
 	TextView txtSMSText;
 	static TextView txtCaptcha1;
-//	static TextView txtError;
+	static TextView txtError;
 	TextView tvMessageText;
 	ImageButton buttonSend;
 	ImageButton buttonClean;
@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
         txtSMSText = (TextView) findViewById(R.id.editMessage);
         //txtName = (TextView) findViewById(R.id.editName);
         txtCaptcha1 = (TextView) findViewById(R.id.editCaptcha1);
-//        txtError = (TextView) findViewById(R.id.textError);
+        txtError = (TextView) findViewById(R.id.txtError);
         tvMessageText = (TextView) findViewById(R.id.textView2);
         
         buttonSend = (ImageButton) findViewById(R.id.btnSend);
@@ -189,12 +189,14 @@ public class MainActivity extends Activity {
         // Проверка на подключение к Интернет
         if (isOnline() == true){
 //        	pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Получение пин-кода", true, false);
+        	setError("Получение пин-кода...");
         	// Получаем капчу
         	//new DownloadImageTask().execute("http://irk.ru/sms");
         	new DownloadImageATask().execute("http://irk.ru/sms");
         }
         else{
 //        	txtError.setText("Вы не подключены к сети Интернет.");
+        	setError("Вы не подключены к сети Интернет.");
         }  
         // Обработчик нажатиЯ на кнопку отправить
         buttonSend.setOnClickListener(new View.OnClickListener() {
@@ -221,6 +223,7 @@ public class MainActivity extends Activity {
 	        		String data_s = "csrfmiddlewaretoken=" + GetToken(_cookie) + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
 //	        		imgStatus.setVisibility(View.INVISIBLE);
 //	        		pdSMS = ProgressDialog.show(MainActivity.this, "Подождите...", "Отправка СМС", true, false);
+	        		setError("Отправка СМС...");
 	        		//new SendSMSTask().execute("http://irk.ru/sms/?", data_s);
 	        		new SendSMSATask().execute("http://irk.ru/sms/?", data_s);
 	        		//new SendSMSTask().execute("http://irk.ru/sms/?", GetToken(_cookie), txtPhoneNumber.getText().toString(), txtSMSText.getText().toString() + "\n" + strMyName, strCaptcha0, txtCaptcha1.getText().toString());
@@ -228,6 +231,7 @@ public class MainActivity extends Activity {
 	        		//pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Џолучение пин-кода", true, false);
 	        		// Получаем капчу
 	        		//new DownloadImageTask().execute("http://irk.ru/sms");
+	        		setError("Получение пин-кода...");
 	        		new DownloadImageATask().execute("http://irk.ru/sms");
 	        		
         		}
@@ -244,6 +248,7 @@ public class MainActivity extends Activity {
 //        			pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Получение пин-кода", true, false);
 	        		// Џолучаем капчу
         			//new DownloadImageTask().execute("http://irk.ru/sms");
+        			setError("Получение пин-кода...");
         			new DownloadImageATask().execute("http://irk.ru/sms");
         		}
         		else{
@@ -315,6 +320,7 @@ public class MainActivity extends Activity {
 				//Log.i(LOG_TAG, "hasFocus = " + hasFocus);
 				if ((txtPhoneNumber.length() > 0) & hasFocus){
 //					pdPNum = ProgressDialog.show(MainActivity.this, "Подождите...", "Идет определение оператора", true, false);
+					setError("Определение оператора...");
 					//new getOperatorTask().execute(txtPhoneNumber.getText().toString());
 					new getOperatorATask().execute(txtPhoneNumber.getText().toString());
 					//new getOperatorTask().execute("9149506721");
@@ -495,6 +501,10 @@ public class MainActivity extends Activity {
 	}
 
 	public static void setError(String strError) {
-//		txtError.setText(strError);
+		txtError.setText(strError);
+	}
+	// Установка капчи
+	public static void setCaptcha(String str){
+		txtCaptcha1.setText(str);
 	}
 }

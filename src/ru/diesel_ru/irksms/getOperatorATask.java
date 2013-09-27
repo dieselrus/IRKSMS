@@ -108,6 +108,7 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
 	        String strLimit = (String) json.getString("limit");
 	        //MAX_LENGTH_SMS = Integer.parseInt(strLimit);
 	        MainActivity.setMaxLeghtSMS(Integer.parseInt(strLimit));
+	        MainActivity.setError("");
 	        //Log.d(LOG_TAG, "Operator = " + strOperator);
 	        //Log.d(LOG_TAG, "Limit = " + strLimit);
 	    }
