@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import ru.diesel_ru.irksms.R;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +62,7 @@ public class MainActivity extends Activity {
     private static String _cookie = "";
     private static String strCaptcha0 = "";
     private String strMyName = "";
+    private static String strTheme = "1";
     private static boolean blClean = false;
     private boolean blCleaningCache = false;
     private static int MAX_LENGTH_SMS = 120;
@@ -133,6 +135,9 @@ public class MainActivity extends Activity {
         strMyName = sp.getString("Name","");
         blClean = sp.getBoolean("Clean", false);
         blCleaningCache = sp.getBoolean("CleaningCache", false);
+        
+        strTheme = sp.getString("Theme", "1");
+        setTheme(strTheme);
         
         // Очищаем кэш приложения
         if(blCleaningCache)     
@@ -506,5 +511,20 @@ public class MainActivity extends Activity {
 	// Установка капчи
 	public static void setCaptcha(String str){
 		txtCaptcha1.setText(str);
+	}
+	
+	private void setTheme(String _theme){
+		if(_theme.compareToIgnoreCase("1") == 0){
+			buttonClean.setImageDrawable(getResources().getDrawable(R.drawable.clean_blue));
+			buttonSelectContact.setImageDrawable(getResources().getDrawable(R.drawable.contact_blue));
+			buttonSelectFavoritesContact.setImageDrawable(getResources().getDrawable(R.drawable.star_blue));
+			buttonSend.setImageDrawable(getResources().getDrawable(R.drawable.send_blue));
+			//buttonClean.setImageDrawable(getResources().getDrawable(R.drawable.clean_blue));
+		} else {
+			buttonClean.setImageDrawable(getResources().getDrawable(R.drawable.clean_white));
+			buttonSelectContact.setImageDrawable(getResources().getDrawable(R.drawable.contact_white));
+			buttonSelectFavoritesContact.setImageDrawable(getResources().getDrawable(R.drawable.star_white));
+			buttonSend.setImageDrawable(getResources().getDrawable(R.drawable.send_blue));
+		}
 	}
 }

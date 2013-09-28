@@ -1,27 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
 	 xmlns:android="http://schemas.android.com/apk/res/android">
-	<EditTextPreference
-		 android:key="Name"
-		 android:summary="Подпись допишется к тексту сообщения."
-		 android:title="Подпись"/>
-	<CheckBoxPreference
-	    android:key="CleaningCache"
-	    android:summary="Попытаться очистить кэш приложения при запуске программы."
-	    android:title="Очистка кэша"/>
+	 <PreferenceCategory
+	    android:title="Основные">
+		<EditTextPreference
+			 android:key="Name"
+			 android:summary="Подпись допишется к тексту сообщения."
+			 android:title="Подпись"/>
+		<CheckBoxPreference
+		    android:key="CleaningCache"
+		    android:summary="Попытаться очистить кэш приложения при запуске программы."
+		    android:title="Очистка кэша"/>
+		
+		<CheckBoxPreference
+		    android:key="Clean"
+		    android:summary="Очистка изображения пин-кода.(Тестовый режим)"
+		    android:title="Очистка изображения (test)"/>
+		
+	</PreferenceCategory>	
 	
-	<CheckBoxPreference
-	    android:key="Clean"
-	    android:summary="Очистка изображения пин-кода.(Тестовый режим)"
-	    android:title="Очистка изображения (test)"/>
+	<PreferenceCategory
+	    android:title="Автораспознование">
+		<CheckBoxPreference
+		    android:key="AutoCaptcha"
+		    android:summary="Автораспознование пин-кода.(Тестовый режим)"
+		    android:title="Автораспознование пин-кода (test)"/>
+		
+		<EditTextPreference
+			 android:key="MagigServer"
+			 android:summary="Адрес сервера распознования пин-кода."
+			 android:title="Адрес сервера"/>
+	</PreferenceCategory>
 	
-	<CheckBoxPreference
-	    android:key="AutoCaptcha"
-	    android:summary="Автораспознование пин-кода.(Тестовый режим)"
-	    android:title="Автораспознование пин-кода (test)"/>
-	
-	<EditTextPreference
-		 android:key="MagigServer"
-		 android:summary="Адрес сервера распознования пин-кода."
-		 android:title="Адрес сервера"/>	
+<!-- 	<PreferenceCategory -->
+<!--      android:title="First Category"> -->
+<!--         <CheckBoxPreference -->
+<!--             android:title="Using PIN" -->
+<!--             android:defaultValue="false" -->
+<!--             android:key="checkboxPref"  -->
+<!--             android:summaryOn="Disable PIN"  -->
+<!--             android:summaryOff="Enable PIN"/> -->
+<!--     </PreferenceCategory> -->
+
+    <PreferenceCategory
+        android:title="Внешний вид">
+        <ListPreference
+            android:title="Тема"
+            android:key="Theme"           
+            android:defaultValue="1"
+            android:entries="@array/listArray"
+            android:entryValues="@array/listValues" />
+    </PreferenceCategory>
+		
+    <PreferenceCategory
+        android:title="О программе">
+        <ListPreference
+            android:title="Тема"
+            android:key="Theme"           
+            android:defaultValue="1"
+            android:entries="@array/listArray"
+            android:entryValues="@array/listValues" />
+	</PreferenceCategory>
 </PreferenceScreen>
