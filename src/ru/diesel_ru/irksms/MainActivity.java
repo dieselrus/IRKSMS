@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ru.diesel_ru.irksms.R;
+import ru.diesel_ru.irksms.R.color;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -31,6 +32,7 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,7 @@ public class MainActivity extends Activity {
 //	ImageButton buttonSendFriend;
 	static ImageView imgCaptcha;
 //	static ImageView imgStatus;
+	LinearLayout mainView;
 	
 	AdView adView;
 	
@@ -137,7 +140,6 @@ public class MainActivity extends Activity {
         blCleaningCache = sp.getBoolean("CleaningCache", false);
         
         strTheme = sp.getString("Theme", "1");
-        setTheme(strTheme);
         
         // Очищаем кэш приложения
         if(blCleaningCache)     
@@ -145,8 +147,9 @@ public class MainActivity extends Activity {
         
         new ConnectivityReceiver();
         
-        //Создание adView
-        adView = new AdView(this, AdSize.BANNER, "a1510fa3b8c4d5e");
+        //Создание adView ca-app-pub-9670568035952143/5674883316
+        //adView = new AdView(this, AdSize.BANNER, "a1510fa3b8c4d5e");
+        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-9670568035952143/5674883316");
         										    
         // Поиск в LinearLayout (предполагается, что был назначен
         // атрибут android:id="@+id/mainLayout"
@@ -173,10 +176,13 @@ public class MainActivity extends Activity {
         buttonClean = (ImageButton) findViewById(R.id.btnClean);
 //        buttonSendFriend = (ImageButton) findViewById(R.id.sendFriend);
         imgCaptcha = (ImageView) findViewById(R.id.imageCaptcha1);
-//        imgStatus = (ImageView) findViewById(R.id.imageStatus);        
+//        imgStatus = (ImageView) findViewById(R.id.imageStatus); 
+        mainView = (LinearLayout) findViewById(R.id.mainView);
         
         // Установка максимальной длины строки для текста СМС
         int maxLength = MAX_LENGTH_SMS - strMyName.length();
+        
+        setTheme(strTheme);
         
         Intent localIntent = getIntent();
         if (localIntent.getAction().contains("android.intent.action.SENDTO")){
@@ -347,7 +353,8 @@ public class MainActivity extends Activity {
         strMyName = sp.getString("Name", "");
         blClean = sp.getBoolean("Clean", false);
         blCleaningCache = sp.getBoolean("CleaningCache", false);
-        
+        strTheme = sp.getString("Theme", "1");
+        setTheme(strTheme);
 		super.onResume();
     }
 
@@ -363,7 +370,8 @@ public class MainActivity extends Activity {
 		strMyName = sp.getString("Name", "");
 		blClean = sp.getBoolean("Clean", false);
 		blCleaningCache = sp.getBoolean("CleaningCache", false);
-		
+		strTheme = sp.getString("Theme", "1");
+        setTheme(strTheme);
 		super.onStart();
     }
     
@@ -515,16 +523,62 @@ public class MainActivity extends Activity {
 	
 	private void setTheme(String _theme){
 		if(_theme.compareToIgnoreCase("1") == 0){
-			buttonClean.setImageDrawable(getResources().getDrawable(R.drawable.clean_blue));
-			buttonSelectContact.setImageDrawable(getResources().getDrawable(R.drawable.contact_blue));
-			buttonSelectFavoritesContact.setImageDrawable(getResources().getDrawable(R.drawable.star_blue));
-			buttonSend.setImageDrawable(getResources().getDrawable(R.drawable.send_blue));
-			//buttonClean.setImageDrawable(getResources().getDrawable(R.drawable.clean_blue));
+//			buttonClean.setImageResource(R.drawable.clean_blue);
+//			buttonSelectContact.setImageResource(R.drawable.contact_blue);
+//			buttonSelectFavoritesContact.setImageResource(R.drawable.star_blue);
+//			buttonSend.setImageResource(R.drawable.send_blue);
+			
+			buttonClean.setBackgroundResource(R.drawable.clean_blue);
+			buttonSelectContact.setBackgroundResource(R.drawable.contact_blue);
+			buttonSelectFavoritesContact.setBackgroundResource(R.drawable.star_blue);
+			buttonSend.setBackgroundResource(R.drawable.send_blue);
+			imgCaptcha.setBackgroundResource(R.drawable.load_blue);
+			
+			//mainView.setBackgroundColor(color.textColor);
+			mainView.setBackgroundColor(Color.parseColor("#ffffff"));
+			
+			RelativeLayout rl =(RelativeLayout) findViewById(R.id.rl);
+			rl.setBackgroundColor(Color.parseColor("#ffffff"));
+			
+			TextView tv1 = (TextView) findViewById(R.id.textView1);
+			tv1.setTextColor(Color.parseColor("#828282"));
+			
+			TextView tv2 = (TextView) findViewById(R.id.textView2);
+			tv2.setTextColor(Color.parseColor("#828282"));
+			
+			TextView tv3 = (TextView) findViewById(R.id.textView3);
+			tv3.setTextColor(Color.parseColor("#828282"));
+			
+			TextView tv4 = (TextView) findViewById(R.id.txtError);
+			tv4.setTextColor(Color.parseColor("#828282"));
 		} else {
-			buttonClean.setImageDrawable(getResources().getDrawable(R.drawable.clean_white));
-			buttonSelectContact.setImageDrawable(getResources().getDrawable(R.drawable.contact_white));
-			buttonSelectFavoritesContact.setImageDrawable(getResources().getDrawable(R.drawable.star_white));
-			buttonSend.setImageDrawable(getResources().getDrawable(R.drawable.send_blue));
+//			buttonClean.setImageResource(R.drawable.clean_white);
+//			buttonSelectContact.setImageResource(R.drawable.contact_white);
+//			buttonSelectFavoritesContact.setImageResource(R.drawable.star_white);
+//			buttonSend.setImageResource(R.drawable.send_blue);
+//			
+			buttonClean.setBackgroundResource(R.drawable.clean_white);
+			buttonSelectContact.setBackgroundResource(R.drawable.contact_white);
+			buttonSelectFavoritesContact.setBackgroundResource(R.drawable.star_white);
+			buttonSend.setBackgroundResource(R.drawable.send_blue);
+			imgCaptcha.setBackgroundResource(R.drawable.load_white);
+			
+			mainView.setBackgroundColor(Color.parseColor("#828282"));
+			
+			RelativeLayout rl =(RelativeLayout) findViewById(R.id.rl);
+			rl.setBackgroundColor(Color.parseColor("#828282"));
+			
+			TextView tv1 = (TextView) findViewById(R.id.textView1);
+			tv1.setTextColor(Color.parseColor("#ffffff"));
+			
+			TextView tv2 = (TextView) findViewById(R.id.textView2);
+			tv2.setTextColor(Color.parseColor("#ffffff"));
+			
+			TextView tv3 = (TextView) findViewById(R.id.textView3);
+			tv3.setTextColor(Color.parseColor("#ffffff"));
+			
+			TextView tv4 = (TextView) findViewById(R.id.txtError);
+			tv4.setTextColor(Color.parseColor("#ffffff"));
 		}
 	}
 }
