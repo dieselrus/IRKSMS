@@ -38,9 +38,10 @@ public final class R {
         public static final int load_blue=0x7f020005;
         public static final int load_white=0x7f020006;
         public static final int send_blue=0x7f020007;
-        public static final int star_blue=0x7f020008;
-        public static final int star_white=0x7f020009;
-        public static final int start_blue=0x7f02000a;
+        public static final int send_white=0x7f020008;
+        public static final int star_blue=0x7f020009;
+        public static final int star_white=0x7f02000a;
+        public static final int start_blue=0x7f02000b;
     }
     public static final class id {
         public static final int admobLayout=0x7f0b000f;

@@ -541,16 +541,20 @@ public class MainActivity extends Activity {
 			rl.setBackgroundColor(Color.parseColor("#ffffff"));
 			
 			TextView tv1 = (TextView) findViewById(R.id.textView1);
-			tv1.setTextColor(Color.parseColor("#828282"));
+			tv1.setTextColor(Color.parseColor("#414141"));
 			
 			TextView tv2 = (TextView) findViewById(R.id.textView2);
-			tv2.setTextColor(Color.parseColor("#828282"));
+			tv2.setTextColor(Color.parseColor("#414141"));
 			
 			TextView tv3 = (TextView) findViewById(R.id.textView3);
-			tv3.setTextColor(Color.parseColor("#828282"));
+			tv3.setTextColor(Color.parseColor("#414141"));
 			
 			TextView tv4 = (TextView) findViewById(R.id.txtError);
-			tv4.setTextColor(Color.parseColor("#828282"));
+			tv4.setTextColor(Color.parseColor("#414141"));
+			
+			TextView tv5 = (TextView) findViewById(R.id.txtLicense);
+			tv5.setTextColor(Color.parseColor("#414141"));
+			
 		} else {
 //			buttonClean.setImageResource(R.drawable.clean_white);
 //			buttonSelectContact.setImageResource(R.drawable.contact_white);
@@ -560,13 +564,13 @@ public class MainActivity extends Activity {
 			buttonClean.setBackgroundResource(R.drawable.clean_white);
 			buttonSelectContact.setBackgroundResource(R.drawable.contact_white);
 			buttonSelectFavoritesContact.setBackgroundResource(R.drawable.star_white);
-			buttonSend.setBackgroundResource(R.drawable.send_blue);
+			buttonSend.setBackgroundResource(R.drawable.send_white);
 			imgCaptcha.setBackgroundResource(R.drawable.load_white);
 			
-			mainView.setBackgroundColor(Color.parseColor("#828282"));
+			mainView.setBackgroundColor(Color.parseColor("#414141"));
 			
 			RelativeLayout rl =(RelativeLayout) findViewById(R.id.rl);
-			rl.setBackgroundColor(Color.parseColor("#828282"));
+			rl.setBackgroundColor(Color.parseColor("#414141"));
 			
 			TextView tv1 = (TextView) findViewById(R.id.textView1);
 			tv1.setTextColor(Color.parseColor("#ffffff"));
@@ -579,6 +583,9 @@ public class MainActivity extends Activity {
 			
 			TextView tv4 = (TextView) findViewById(R.id.txtError);
 			tv4.setTextColor(Color.parseColor("#ffffff"));
+			
+			TextView tv5 = (TextView) findViewById(R.id.txtLicense);
+			tv5.setTextColor(Color.parseColor("#ffffff"));
 		}
 	}
 }
