@@ -6,9 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ru.diesel_ru.irksms.R;
-import ru.diesel_ru.irksms.R.color;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -512,7 +510,7 @@ public class MainActivity extends Activity {
 //		pdPNum.dismiss();
 		MAX_LENGTH_SMS = parseInt;
 	}
-
+	// Выводим сообщение об ошибках
 	public static void setError(String strError) {
 		txtError.setText(strError);
 	}

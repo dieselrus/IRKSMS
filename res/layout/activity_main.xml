@@ -40,6 +40,8 @@
                 android:background="@xml/rounded_edittext"
                 android:ems="10"
                 android:inputType="phone"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:textColor="@color/gray" >
 
                 <requestFocus />
@@ -77,15 +79,17 @@
                 android:id="@+id/editMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minLines="4"         
-                android:gravity="top|left"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView2"
                 android:layout_marginTop="5dp"
                 android:layout_toLeftOf="@+id/btnClean"
                 android:background="@xml/rounded_edittext"
                 android:ems="10"
-                android:isScrollContainer="true" />
+                android:gravity="top|left"
+                android:isScrollContainer="true"
+                android:minLines="4"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp" />
 
             <ImageButton
                 android:id="@+id/btnClean"
@@ -137,20 +141,21 @@
                 android:layout_toRightOf="@+id/imageCaptcha1"
                 android:background="@xml/rounded_edittext"
                 android:ems="10"
-                android:inputType="number" />
-
+                android:inputType="number"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp" />
+			
+            <TextView
+		        android:id="@+id/txtError"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:maxHeight="96dp"
+		        android:minLines="1"
+		        android:layout_marginTop="5dp"
+		        android:layout_below="@+id/imageCaptcha1"
+		        android:scrollbars="vertical" />
         </RelativeLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/txtError"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxHeight="96dp"
-        android:minLines="2"
-        android:layout_marginLeft="23dp"
-        android:layout_marginRight="23dp"
-        android:scrollbars="vertical" />
 
     <LinearLayout
         android:id="@+id/admobLayout"

@@ -54,11 +54,11 @@
 		
     <PreferenceCategory
         android:title="О программе">
-        <ListPreference
+       <!--  <ListPreference
             android:title="Тема"
             android:key="Theme"           
             android:defaultValue="1"
             android:entries="@array/listArray"
-            android:entryValues="@array/listValues" />
+            android:entryValues="@array/listValues" /> -->
 	</PreferenceCategory>
 </PreferenceScreen>
