@@ -552,8 +552,6 @@ public class MainActivity extends Activity {
 			TextView tv4 = (TextView) findViewById(R.id.txtError);
 			tv4.setTextColor(Color.parseColor("#414141"));
 			
-			TextView tv5 = (TextView) findViewById(R.id.txtLicense);
-			tv5.setTextColor(Color.parseColor("#414141"));
 			
 		} else {
 //			buttonClean.setImageResource(R.drawable.clean_white);
@@ -584,8 +582,6 @@ public class MainActivity extends Activity {
 			TextView tv4 = (TextView) findViewById(R.id.txtError);
 			tv4.setTextColor(Color.parseColor("#ffffff"));
 			
-			TextView tv5 = (TextView) findViewById(R.id.txtLicense);
-			tv5.setTextColor(Color.parseColor("#ffffff"));
 		}
 	}
 }
