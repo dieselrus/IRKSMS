@@ -154,8 +154,7 @@
 		        android:id="@+id/txtError"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:maxHeight="96dp"
-		        android:minLines="1"
+		        android:isScrollContainer="true"
 		        android:layout_marginTop="5dp"
 		        android:layout_below="@+id/imageCaptcha1"
 		        android:scrollbars="vertical" />

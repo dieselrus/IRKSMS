@@ -1,4 +1,4 @@
-﻿package ru.diesel_ru.irksms;
+﻿package ru.diesel_ru.irkrusmser;
 
 import java.util.ArrayList;
 

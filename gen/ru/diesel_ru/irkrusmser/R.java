@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package ru.diesel_ru.irksms;
+package ru.diesel_ru.irkrusmser;
 
 public final class R {
     public static final class array {

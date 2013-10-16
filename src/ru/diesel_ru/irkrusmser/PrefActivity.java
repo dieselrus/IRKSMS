@@ -1,6 +1,6 @@
-package ru.diesel_ru.irksms;
+package ru.diesel_ru.irkrusmser;
 
-import ru.diesel_ru.irksms.R;
+import ru.diesel_ru.irkrusmser.R;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 

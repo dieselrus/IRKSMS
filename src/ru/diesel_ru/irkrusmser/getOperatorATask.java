@@ -1,4 +1,4 @@
-package ru.diesel_ru.irksms;
+package ru.diesel_ru.irkrusmser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -108,7 +108,7 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
 	        String strLimit = (String) json.getString("limit");
 	        //MAX_LENGTH_SMS = Integer.parseInt(strLimit);
 	        MainActivity.setMaxLeghtSMS(Integer.parseInt(strLimit));
-	        MainActivity.setError("");
+	        //MainActivity.setError("");
 	        //Log.d(LOG_TAG, "Operator = " + strOperator);
 	        //Log.d(LOG_TAG, "Limit = " + strLimit);
 	    }

@@ -1,11 +1,11 @@
-package ru.diesel_ru.irksms;
+package ru.diesel_ru.irkrusmser;
 
 import java.io.File;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ru.diesel_ru.irksms.R;
+import ru.diesel_ru.irkrusmser.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -476,7 +476,7 @@ public class MainActivity extends Activity {
 	   	}
 	   	
 //	   	pd.dismiss();
-	   	setError("");
+	   	//setError("");
 	   	imgCaptcha.setImageBitmap(img);	
 	}
 	
@@ -515,7 +515,8 @@ public class MainActivity extends Activity {
 	}
 	// Выводим сообщение об ошибках
 	public static void setError(String strError) {
-		txtError.setText(strError);
+		//txtError.setText(strError);
+		txtError.append(strError + "\n");
 	}
 	// Установка капчи
 	public static void setCaptcha(String str){

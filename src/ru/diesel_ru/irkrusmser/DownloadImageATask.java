@@ -1,4 +1,4 @@
-package ru.diesel_ru.irksms;
+package ru.diesel_ru.irkrusmser;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -119,7 +119,7 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 	    return output;
 	} 
    
-   // �?нвентирование изображения
+   // �?нвентирование изображения
    public Bitmap invert(Bitmap src) {
 		Bitmap output = Bitmap.createBitmap(src.getWidth(), src.getHeight(), src.getConfig());
 		int A, R, G, B;
@@ -143,7 +143,7 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 	    return output;
 	}  
    
-   // �?зменение контраста
+   // �?зменение контраста
    private Bitmap adjustedContrast(Bitmap src, double value)
    {
        // image size
@@ -271,7 +271,7 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 //   	imgCaptcha.setImageBitmap(result);
 	   
 	   MainActivity.setBitmapCaptcha(result);
-	   MainActivity.setError("");
+	   //MainActivity.setError("");
 //       imgStatus.setVisibility(View.INVISIBLE);
     // “ничтожить окно диалого
    	//dismissDialog(PROGRESS_DLG_ID);
