@@ -42,6 +42,7 @@
         />
         <activity android:name="PrefActivity"></activity>
         <activity android:name="FavContList"></activity>
+        <activity android:name="Abaut"></activity>
     </application>
 
 </manifest>

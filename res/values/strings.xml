@@ -16,4 +16,6 @@
 	<string name="saved">Сохранено</string>
 	<string name="send_friends">Отправить другу</string>
 	<string name="captcha">Введите номер с картинки</string>
+	<string name="todo">TODO</string>
+	<string name="menu_abaut">О программе</string>
 </resources>

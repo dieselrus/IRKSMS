@@ -19,18 +19,18 @@
 		
 	</PreferenceCategory>	
 	
-	<PreferenceCategory
-	    android:title="Автораспознование">
-		<CheckBoxPreference
-		    android:key="AutoCaptcha"
-		    android:summary="Автораспознование пин-кода.(Тестовый режим)"
-		    android:title="Автораспознование пин-кода (test)"/>
+<!-- 	<PreferenceCategory -->
+<!-- 	    android:title="Автораспознование"> -->
+<!-- 		<CheckBoxPreference -->
+<!-- 		    android:key="AutoCaptcha" -->
+<!-- 		    android:summary="Автораспознование пин-кода.(Тестовый режим)" -->
+<!-- 		    android:title="Автораспознование пин-кода (test)"/> -->
 		
-		<EditTextPreference
-			 android:key="MagigServer"
-			 android:summary="Адрес сервера распознования пин-кода."
-			 android:title="Адрес сервера"/>
-	</PreferenceCategory>
+<!-- 		<EditTextPreference -->
+<!-- 			 android:key="MagigServer" -->
+<!-- 			 android:summary="Адрес сервера распознования пин-кода." -->
+<!-- 			 android:title="Адрес сервера"/> -->
+<!-- 	</PreferenceCategory> -->
 	
 <!-- 	<PreferenceCategory -->
 <!--      android:title="First Category"> -->
@@ -51,14 +51,4 @@
             android:entries="@array/listArray"
             android:entryValues="@array/listValues" />
     </PreferenceCategory>
-		
-    <PreferenceCategory
-        android:title="О программе">
-       <!--  <ListPreference
-            android:title="Тема"
-            android:key="Theme"           
-            android:defaultValue="1"
-            android:entries="@array/listArray"
-            android:entryValues="@array/listValues" /> -->
-	</PreferenceCategory>
 </PreferenceScreen>

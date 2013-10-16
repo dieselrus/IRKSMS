@@ -44,31 +44,34 @@ public final class R {
         public static final int start_blue=0x7f02000b;
     }
     public static final class id {
-        public static final int admobLayout=0x7f0b000f;
-        public static final int btnClean=0x7f0b0009;
-        public static final int btnContacts=0x7f0b0005;
-        public static final int btnFContacts=0x7f0b0006;
-        public static final int btnSend=0x7f0b000b;
-        public static final int editCaptcha1=0x7f0b000d;
-        public static final int editMessage=0x7f0b0008;
-        public static final int editPhoneNumber=0x7f0b0004;
-        public static final int imageCaptcha1=0x7f0b000c;
-        public static final int lvMain=0x7f0b0010;
-        public static final int mainView=0x7f0b0000;
-        public static final int menu_settings=0x7f0b0011;
-        public static final int rl=0x7f0b0002;
-        public static final int scrollView1=0x7f0b0001;
-        public static final int textView1=0x7f0b0003;
-        public static final int textView2=0x7f0b0007;
-        public static final int textView3=0x7f0b000a;
-        public static final int txtError=0x7f0b000e;
+        public static final int abaut=0x7f0b0000;
+        public static final int admobLayout=0x7f0b0010;
+        public static final int btnClean=0x7f0b000a;
+        public static final int btnContacts=0x7f0b0006;
+        public static final int btnFContacts=0x7f0b0007;
+        public static final int btnSend=0x7f0b000c;
+        public static final int editCaptcha1=0x7f0b000e;
+        public static final int editMessage=0x7f0b0009;
+        public static final int editPhoneNumber=0x7f0b0005;
+        public static final int imageCaptcha1=0x7f0b000d;
+        public static final int lvMain=0x7f0b0011;
+        public static final int mainView=0x7f0b0001;
+        public static final int menu_abaut=0x7f0b0013;
+        public static final int menu_settings=0x7f0b0012;
+        public static final int rl=0x7f0b0003;
+        public static final int scrollView1=0x7f0b0002;
+        public static final int textView1=0x7f0b0004;
+        public static final int textView2=0x7f0b0008;
+        public static final int textView3=0x7f0b000b;
+        public static final int txtError=0x7f0b000f;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int list=0x7f030001;
+        public static final int abaut=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int list=0x7f030002;
     }
     public static final class menu {
-        public static final int activity_main=0x7f0a0000;
+        public static final int main_menu=0x7f0a0000;
     }
     public static final class string {
         public static final int MessageText=0x7f080003;
@@ -77,11 +80,13 @@ public final class R {
         public static final int cancel=0x7f080008;
         public static final int captcha=0x7f08000b;
         public static final int exit=0x7f080004;
+        public static final int menu_abaut=0x7f08000d;
         public static final int menu_settings=0x7f080002;
         public static final int no=0x7f080007;
         public static final int save_data=0x7f080005;
         public static final int saved=0x7f080009;
         public static final int send_friends=0x7f08000a;
+        public static final int todo=0x7f08000c;
         public static final int yes=0x7f080006;
     }
     public static final class style {

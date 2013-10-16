@@ -444,6 +444,9 @@ public class MainActivity extends Activity {
         //return true;
 	      MenuItem mi = menu.add(0, 1, 0, "Настройки");
 	      mi.setIntent(new Intent(this, PrefActivity.class));
+	      mi = menu.add(0, 1, 0, "О программе");
+	      mi.setIntent(new Intent(this, Abaut.class));
+	      
 	      return super.onCreateOptionsMenu(menu);
     }
 	
