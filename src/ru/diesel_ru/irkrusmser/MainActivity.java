@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -147,7 +148,7 @@ public class MainActivity extends Activity {
         
         //Создание adView ca-app-pub-9670568035952143/5674883316
         //adView = new AdView(this, AdSize.BANNER, "a1510fa3b8c4d5e");
-        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-9670568035952143/5674883316");
+        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-6935822903770431/6554126304");
         										    
         // Поиск в LinearLayout (предполагается, что был назначен
         // атрибут android:id="@+id/mainLayout"
@@ -243,6 +244,12 @@ public class MainActivity extends Activity {
 	        		setError("Получение пин-кода...");
 	        		new DownloadImageATask().execute("http://irk.ru/sms");
 	        		
+	        		//InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE); 
+	        		//inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+	        		
+	        		// Прячем клавиатуру после отправки СМС
+	        		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	        		imm.hideSoftInputFromWindow(txtCaptcha1.getWindowToken(), 0);
         		}
         		else{
         			Toast.makeText(getApplicationContext(), "Вы не подключены к сети Интернет.", Toast.LENGTH_SHORT).show();
