@@ -199,33 +199,33 @@ public class MainActivity extends Activity {
         // Проверка на подключение к Интернет
         if (isOnline() == true){
 //        	pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Получение пин-кода", true, false);
-        	setError("Џолучение пин-кода...");
+        	setError("Получение пин-кода...");
         	// Получаем капчу
         	//new DownloadImageTask().execute("http://irk.ru/sms");
         	new DownloadImageATask().execute("http://irk.ru/sms");
         }
         else{
 //        	txtError.setText("Вы не подключены к сети Интернет.");
-        	setError("‚ы не подключены к сети Интернет.");
+        	setError("Вы не подключены к сети Интернет.");
         }  
         // Обработчик нажатиЯ на кнопку отправить
         buttonSend.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		if (txtPhoneNumber.length() < 1)
         		{
-        			Toast.makeText(getApplicationContext(), "‚ведите номер телефона!", Toast.LENGTH_SHORT).show();
+        			Toast.makeText(getApplicationContext(), "Введите номер телефона!", Toast.LENGTH_SHORT).show();
         			return;
         		}
         		
         		if (txtSMSText.length() < 1)
         		{
-        			Toast.makeText(getApplicationContext(), "‚ведите текст ‘Њ‘", Toast.LENGTH_SHORT).show();
+        			Toast.makeText(getApplicationContext(), "Введите текст СМС", Toast.LENGTH_SHORT).show();
         			return;
         		}
         		
         		if (txtCaptcha1.length() < 1)
         		{
-        			Toast.makeText(getApplicationContext(), "‚ведите пин-код!", Toast.LENGTH_SHORT).show();
+        			Toast.makeText(getApplicationContext(), "Введите пин-код!", Toast.LENGTH_SHORT).show();
         			return;
         		}
         		
@@ -233,7 +233,7 @@ public class MainActivity extends Activity {
 	        		String data_s = "csrfmiddlewaretoken=" + GetToken(_cookie) + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
 //	        		imgStatus.setVisibility(View.INVISIBLE);
 //	        		pdSMS = ProgressDialog.show(MainActivity.this, "Подождите...", "Отправка СМС", true, false);
-	        		setError("Ћтправка СМС...");
+	        		setError("Отправка СМС...");
 	        		//new SendSMSTask().execute("http://irk.ru/sms/?", data_s);
 	        		new SendSMSATask().execute("http://irk.ru/sms/?", data_s);
 	        		//new SendSMSTask().execute("http://irk.ru/sms/?", GetToken(_cookie), txtPhoneNumber.getText().toString(), txtSMSText.getText().toString() + "\n" + strMyName, strCaptcha0, txtCaptcha1.getText().toString());
@@ -241,7 +241,7 @@ public class MainActivity extends Activity {
 	        		//pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Џолучение пин-кода", true, false);
 	        		// Получаем капчу
 	        		//new DownloadImageTask().execute("http://irk.ru/sms");
-	        		setError("Џолучение пин-кода...");
+	        		setError("Получение пин-кода...");
 	        		new DownloadImageATask().execute("http://irk.ru/sms");
 	        		
 	        		//InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE); 
@@ -252,7 +252,7 @@ public class MainActivity extends Activity {
 	        		imm.hideSoftInputFromWindow(txtCaptcha1.getWindowToken(), 0);
         		}
         		else{
-        			Toast.makeText(getApplicationContext(), "‚ы не подключены к сети Интернет.", Toast.LENGTH_SHORT).show();
+        			Toast.makeText(getApplicationContext(), "Вы не подключены к сети Интернет.", Toast.LENGTH_SHORT).show();
         		}
         	}
         });
@@ -264,11 +264,11 @@ public class MainActivity extends Activity {
 //        			pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Получение пин-кода", true, false);
 	        		// Џолучаем капчу
         			//new DownloadImageTask().execute("http://irk.ru/sms");
-        			setError("Џолучение пин-кода...");
+        			setError("Получение пин-кода...");
         			new DownloadImageATask().execute("http://irk.ru/sms");
         		}
         		else{
-        			Toast.makeText(getApplicationContext(), "‚ы не подключены к сети Интернет.", Toast.LENGTH_SHORT).show();
+        			Toast.makeText(getApplicationContext(), "Вы не подключены к сети Интернет.", Toast.LENGTH_SHORT).show();
         		}
         	}
         });
