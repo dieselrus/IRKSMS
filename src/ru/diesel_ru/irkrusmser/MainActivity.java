@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import ru.diesel_ru.irkrusmser.R;
 
+import android.R.string;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -63,8 +64,14 @@ public class MainActivity extends Activity {
 	
     private static String _cookie = "";
     private static String strCaptcha0 = "";
+    private static String strCsrfmiddlewaretoken = "";
+    
     private String strMyName = "";
     private static String strTheme = "1";
+    
+    private static boolean blMagic = false;
+    private static long longMagicDate = 0;
+    
     private static boolean blClean = false;
     private boolean blCleaningCache = false;
     private static int MAX_LENGTH_SMS = 120;
@@ -135,8 +142,12 @@ public class MainActivity extends Activity {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         
         strMyName = sp.getString("Name","");
+        
         blClean = sp.getBoolean("Clean", false);
         blCleaningCache = sp.getBoolean("CleaningCache", false);
+        
+        blMagic = sp.getBoolean("Magic", false);
+        longMagicDate = sp.getLong("MagicDate",0);
         
         strTheme = sp.getString("Theme", "1");
         
@@ -360,6 +371,10 @@ public class MainActivity extends Activity {
         blCleaningCache = sp.getBoolean("CleaningCache", false);
         strTheme = sp.getString("Theme", "1");
         setTheme(strTheme);
+        
+        longMagicDate = sp.getLong("MagicDate", 0);
+        blMagic = sp.getBoolean("Magic", false);
+        
 		super.onResume();
     }
 
@@ -377,6 +392,10 @@ public class MainActivity extends Activity {
 		blCleaningCache = sp.getBoolean("CleaningCache", false);
 		strTheme = sp.getString("Theme", "1");
         setTheme(strTheme);
+        
+        longMagicDate = sp.getLong("MagicDate", 0);
+        blMagic = sp.getBoolean("Magic", false);
+        
 		super.onStart();
     }
     
@@ -449,9 +468,9 @@ public class MainActivity extends Activity {
         //getMenuInflater().inflate(R.menu.main, menu);
         //menu.add("menu1");
         //return true;
-	      MenuItem mi = menu.add(0, 1, 0, "Ќастройки");
+	      MenuItem mi = menu.add(0, 1, 0, "Настройки");
 	      mi.setIntent(new Intent(this, PrefActivity.class));
-	      mi = menu.add(0, 1, 0, "Ћ программе");
+	      mi = menu.add(0, 1, 0, "О программе");
 	      mi.setIntent(new Intent(this, Abaut.class));
 	      
 	      return super.onCreateOptionsMenu(menu);
@@ -472,6 +491,16 @@ public class MainActivity extends Activity {
 		return blClean;		
 	}
 	
+	// Проверяем включен ли режим автораспознования
+	public static boolean getBlMagic (){
+		return blMagic;		
+	}
+	
+	// Проверяем время до которго разрешено автораспознование
+	public static long getlongMagic (){
+		return longMagicDate;		
+	}
+		
 	// Устанавливаем изображение капчи
 	public static void setBitmapCaptcha (Bitmap img){
 	   	if(blClean){
@@ -526,10 +555,15 @@ public class MainActivity extends Activity {
 		txtError.append(strError + "\n");
 	}
 	// Установка капчи
-	public static void setCaptcha(String str){
+	public static void setCaptcha1(String str){
 		txtCaptcha1.setText(str);
 	}
-	
+
+	// Установка капчи
+	public static void setCsrfmiddlewaretoken(String str) {
+		strCsrfmiddlewaretoken = str;
+	}
+		
 	private void setTheme(String _theme){
 		if(_theme.compareToIgnoreCase("1") == 0){
 //			buttonClean.setImageResource(R.drawable.clean_blue);

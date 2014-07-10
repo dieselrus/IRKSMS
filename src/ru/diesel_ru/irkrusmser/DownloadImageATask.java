@@ -33,8 +33,28 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
    protected Bitmap doInBackground(String... urls) {
        try {
        	// Џолучаем изображение капчи в отдельном потоке
-       	strCaptcha0 = GetCaptchaPath(urls[0]);
-       	MainActivity.setCaptcha0(strCaptcha0);
+    	if(MainActivity.getBlMagic()){
+    		new MagicClass().execute();
+    		
+    		int time = 0;
+    		
+    		while ( time < 5 && MagicClass.getCaptcha0() == null ) {
+    			try {
+    			    Thread.sleep(1000);
+    			    time++;
+    			} catch(InterruptedException ex) {
+    			    Thread.currentThread().interrupt();
+    			    return null;
+    			}
+			}
+    		
+    		strCaptcha0 = MagicClass.getCaptcha0();	
+    	}
+    	else{
+    		strCaptcha0 = GetCaptchaPath(urls[0]);
+    	}
+    	
+    	MainActivity.setCaptcha0(strCaptcha0);
 			//return getImageByUrl("http://irk.ru/captcha/image/" + strCaptcha0);
        	Bitmap img = getImageByUrl("http://irk.ru/captcha/image/" + strCaptcha0);
 			

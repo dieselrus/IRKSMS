@@ -13,7 +13,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.os.AsyncTask;
 
 public class MagicClass extends AsyncTask<String, Void, String> {
-
+	private static String strCaptcha0 = null;
+	private static String strCsrfmiddlewaretoken = null;
+	private static String strCaptcha1 = null;
+	
 	protected String doInBackground(String... _urls) {
 		try {  			
    			//String url = "http://www.irk.ru/sms/check/?number=" + _phone;
@@ -37,7 +40,7 @@ public class MagicClass extends AsyncTask<String, Void, String> {
    			
    			//Log.d(LOG_TAG, "allpage = " + allpage.toString());
    			//return allpage.toString();
-//   			System.out.println(result.toString());
+   			//System.out.println(result.toString());
    			return result.toString();
    			
 			} catch (ClientProtocolException e) {
@@ -60,6 +63,15 @@ public class MagicClass extends AsyncTask<String, Void, String> {
    }
 	*/
    protected void onPostExecute(String result) {	   
-	   MainActivity.setCaptcha(result);	   
+	   MainActivity.setCaptcha0(result);	   
    }
+   
+   public static String getCaptcha0(){
+	   return strCaptcha0;
+   }
+   
+   public static String getCaptcha1(){
+	   return strCaptcha1;
+   }
+   
 }
