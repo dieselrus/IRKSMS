@@ -74,4 +74,7 @@ public class MagicClass extends AsyncTask<String, Void, String> {
 	   return strCaptcha1;
    }
    
+   public static String getToken(){
+	   return strCsrfmiddlewaretoken;
+   }
 }

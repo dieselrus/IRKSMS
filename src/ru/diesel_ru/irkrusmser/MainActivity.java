@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import ru.diesel_ru.irkrusmser.R;
 
-import android.R.string;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
