@@ -238,7 +238,15 @@ public class MainActivity extends Activity {
         		}
         		
         		if (isOnline() == true){
-	        		String data_s = "csrfmiddlewaretoken=" + GetToken(_cookie) + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
+        			String data_s = "";
+        			
+        			// Состояние автораспознования
+        			if(MainActivity.getBlMagic()){
+        				data_s = "csrfmiddlewaretoken=" + strCsrfmiddlewaretoken + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
+        			} else {
+        				data_s = "csrfmiddlewaretoken=" + GetToken(_cookie) + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
+        			}
+        			
 	        		imgStatus.setVisibility(View.INVISIBLE);
 	        		setError("Отправка СМС...");
 	        		new SendSMSATask().execute("http://irk.ru/sms/?", data_s);

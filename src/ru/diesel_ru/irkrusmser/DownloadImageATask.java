@@ -61,7 +61,7 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 					}
 				}
 				
-				System.out.println("http captcha: "+ allpage.toString());
+				//System.out.println("http captcha: "+ allpage.toString());
 				
 				String _str = allpage.toString();
 				
@@ -73,15 +73,17 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 				System.out.println("strCsrfmiddlewaretoken: "+ strCsrfmiddlewaretoken);
 				System.out.println("strCaptcha0: "+ strCaptcha0);
 				System.out.println("strCaptcha1: "+ strCaptcha1);
-    		
-				//strCaptcha0 = MagicClass.getCaptcha0();	
+				
+				_cookie = "csrftoken=" + strCsrfmiddlewaretoken + "; p=\"twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1\"";
+				MainActivity.setCoockie(_cookie);
+				MainActivity.setCsrfmiddlewaretoken(strCsrfmiddlewaretoken);
 				
 	    	}
 	    	else{
 	    		strCaptcha0 = GetCaptchaPath(urls[0]);
 	    	}
 	    	
-	    	System.out.println("Download strCaptcha0: "+ strCaptcha0);
+	    	//System.out.println("Download strCaptcha0: "+ strCaptcha0);
 	    	
 	    	MainActivity.setCaptcha0(strCaptcha0);
 
@@ -256,23 +258,19 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 			// Save Cookie
 			String headerName = null;
 			//_cookies.clear();
-			if(MainActivity.getBlMagic()){
-				MainActivity.setCoockie("csrftoken=" + strCsrfmiddlewaretoken + "; p=\"twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1\"");
-				MainActivity.setCsrfmiddlewaretoken(strCsrfmiddlewaretoken);
-			} else {
-			
-				if (MainActivity.getCoockie() == "") {
-					for (int i=1; (headerName = conn.getHeaderFieldKey(i))!=null; i++) {
-						if (headerName.equalsIgnoreCase("Set-Cookie")) 
-						{    
-							String cookie = conn.getHeaderField(i);
-							this._cookie += cookie.substring(0,cookie.indexOf(";")) + "; ";
+			if (MainActivity.getCoockie() == "") {
+				for (int i=1; (headerName = conn.getHeaderFieldKey(i))!=null; i++) {
+					if (headerName.equalsIgnoreCase("Set-Cookie")) 
+					{    
+						String cookie = conn.getHeaderField(i);
+						this._cookie += cookie.substring(0,cookie.indexOf(";")) + "; ";
 						}
-					}
-					
-					MainActivity.setCoockie(_cookie); //csrftoken=nVrFLgC1Q91pKaOrNB0qtetTxRVMZw7E; p="twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1"; 
 				}
+					
+				MainActivity.setCoockie(_cookie); //csrftoken=nVrFLgC1Q91pKaOrNB0qtetTxRVMZw7E; p="twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1"; 
+				System.out.println("set cookie: "+ _cookie);
 			}
+
                
 			InputStreamReader rd = new InputStreamReader(conn.getInputStream());
 			StringBuilder allpage = new StringBuilder();
