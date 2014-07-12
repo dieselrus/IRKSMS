@@ -108,12 +108,13 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
 	        String strLimit = (String) json.getString("limit");
 	        //MAX_LENGTH_SMS = Integer.parseInt(strLimit);
 	        MainActivity.setMaxLeghtSMS(Integer.parseInt(strLimit));
-	        //MainActivity.setError("");
+	        MainActivity.setError("Оператр определен.");
 	        //Log.d(LOG_TAG, "Operator = " + strOperator);
 	        //Log.d(LOG_TAG, "Limit = " + strLimit);
 	    }
 	    catch (JSONException e) {
 	        e.printStackTrace();
+	        MainActivity.setError(e.getMessage());
 	        //Log.i(LOG_TAG,e.toString());
 	    }
 	    
@@ -127,6 +128,7 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
 	    }
 	    catch (JSONException e) {
 	        e.printStackTrace();
+	        MainActivity.setError(e.getMessage());
 	    }
     // “ничтожить окно диалого
    	//dismissDialog(PROGRESS_DLG_ID);

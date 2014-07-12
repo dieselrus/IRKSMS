@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainView"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <ScrollView
@@ -18,8 +18,16 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin" >
 
+            <LinearLayout
+		        android:id="@+id/admobLayout"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical" >
+		    </LinearLayout>
+    
             <TextView
                 android:id="@+id/textView1"
+                android:layout_below="@+id/admobLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -89,7 +97,7 @@
                 android:ems="10"
                 android:gravity="top|left"
                 android:isScrollContainer="true"
-                android:minLines="4"
+                android:minLines="5"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" />
 
@@ -131,9 +139,9 @@
                 android:layout_alignBottom="@+id/editCaptcha1"
                 android:layout_below="@+id/textView3"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/load_blue"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/todo"/>
+                android:background="@drawable/load_no"
+                android:contentDescription="@string/todo"
+                android:scaleType="centerCrop" />
 
             <EditText
                 android:id="@+id/editCaptcha1"
@@ -158,16 +166,17 @@
 		        android:layout_marginTop="5dp"
 		        android:layout_below="@+id/imageCaptcha1"
 		        android:scrollbars="vertical" />
+
+            <ImageView
+                android:id="@+id/imageStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/btnClean"
+                android:layout_alignTop="@+id/editMessage"
+                android:background="@drawable/status_no_blue"
+                android:contentDescription="@string/todo" />
+
         </RelativeLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/admobLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical" >
-
-    </LinearLayout>
 
 </LinearLayout>

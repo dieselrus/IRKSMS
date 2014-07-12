@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 	static final private int PHONE_NUMBER = 3;
 	static String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2"; 
 	
-	TextView txtPhoneNumber;
+	static TextView txtPhoneNumber;
 	TextView txtSMSText;
 	static TextView txtCaptcha1;
 	static TextView txtError;
@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
 	ImageButton buttonSelectFavoritesContact;
 //	ImageButton buttonSendFriend;
 	static ImageView imgCaptcha;
-//	static ImageView imgStatus;
+	static ImageView imgStatus;
 	LinearLayout mainView;
 	
 	AdView adView;
@@ -77,10 +77,6 @@ public class MainActivity extends Activity {
     
     //Диалоговое окно прогресс бара
     final int PROGRESS_DLG_ID = 666;
-    //Диалог ожиданиЯ
-//    private static ProgressDialog pd;
-//    private static ProgressDialog pdSMS;
-//    private static ProgressDialog pdPNum;
     
     //ДлЯ сохранениЯ настроек
     SharedPreferences sp;
@@ -185,11 +181,13 @@ public class MainActivity extends Activity {
         buttonClean = (ImageButton) findViewById(R.id.btnClean);
 //        buttonSendFriend = (ImageButton) findViewById(R.id.sendFriend);
         imgCaptcha = (ImageView) findViewById(R.id.imageCaptcha1);
-//        imgStatus = (ImageView) findViewById(R.id.imageStatus); 
+        imgStatus = (ImageView) findViewById(R.id.imageStatus); 
         mainView = (LinearLayout) findViewById(R.id.mainView);
         
         // Установка максимальной длины строки для текста СМС
         int maxLength = MAX_LENGTH_SMS - strMyName.length();
+        
+        imgStatus.setVisibility(View.INVISIBLE);
         
         setTheme(strTheme);
         
@@ -208,10 +206,8 @@ public class MainActivity extends Activity {
         
         // Проверка на подключение к Интернет
         if (isOnline() == true){
-//        	pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Получение пин-кода", true, false);
         	setError("Получение пин-кода...");
         	// Получаем капчу
-        	//new DownloadImageTask().execute("http://irk.ru/sms");
         	new DownloadImageATask().execute("http://irk.ru/sms");
         }
         else{
@@ -241,14 +237,10 @@ public class MainActivity extends Activity {
         		
         		if (isOnline() == true){
 	        		String data_s = "csrfmiddlewaretoken=" + GetToken(_cookie) + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
-//	        		imgStatus.setVisibility(View.INVISIBLE);
-//	        		pdSMS = ProgressDialog.show(MainActivity.this, "Подождите...", "Отправка СМС", true, false);
+	        		imgStatus.setVisibility(View.INVISIBLE);
 	        		setError("Отправка СМС...");
-	        		//new SendSMSTask().execute("http://irk.ru/sms/?", data_s);
 	        		new SendSMSATask().execute("http://irk.ru/sms/?", data_s);
-	        		//new SendSMSTask().execute("http://irk.ru/sms/?", GetToken(_cookie), txtPhoneNumber.getText().toString(), txtSMSText.getText().toString() + "\n" + strMyName, strCaptcha0, txtCaptcha1.getText().toString());
-	        			//Log.v("status", "SEND");
-	        		//pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Џолучение пин-кода", true, false);
+
 	        		// Получаем капчу
 	        		//new DownloadImageTask().execute("http://irk.ru/sms");
 	        		setError("Получение пин-кода...");
@@ -270,10 +262,9 @@ public class MainActivity extends Activity {
         // Обработчик нажатия на капчу (обновление капчи)
         imgCaptcha.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
+        		imgStatus.setVisibility(View.INVISIBLE);
         		if (isOnline() == true){
-//        			pd = ProgressDialog.show(MainActivity.this, "Подождите...", "Получение пин-кода", true, false);
 	        		// Џолучаем капчу
-        			//new DownloadImageTask().execute("http://irk.ru/sms");
         			setError("Получение пин-кода...");
         			new DownloadImageATask().execute("http://irk.ru/sms");
         		}
@@ -286,11 +277,12 @@ public class MainActivity extends Activity {
         // Обработчик выбора контакта
         buttonSelectContact.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
+        		//imgStatus.setVisibility(View.INVISIBLE);
         		// Выбор только контактов звонков (без почтовых)
                 Intent pickIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 pickIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
                 startActivityForResult(pickIntent, PICK_RESULT);
-//                imgStatus.setVisibility(View.INVISIBLE);
+                imgStatus.setVisibility(View.INVISIBLE);
         	}
         });
         
@@ -299,7 +291,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, FavContList.class);
 			    startActivityForResult(intent, PHONE_NUMBER);
-//			    imgStatus.setVisibility(View.INVISIBLE);
+			    imgStatus.setVisibility(View.INVISIBLE);
         	}
         });
         
@@ -307,7 +299,7 @@ public class MainActivity extends Activity {
         buttonClean.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		txtSMSText.setText("");
-//        		imgStatus.setVisibility(View.INVISIBLE);
+        		imgStatus.setVisibility(View.INVISIBLE);
         	}
         });
          
@@ -319,10 +311,10 @@ public class MainActivity extends Activity {
 //        });
         
         //Обработка ввода символов в текстовое поле для текста СМС
-//		tvMessageText.setText("@+id/editPhoneNumber" + " (" + String.valueOf(200 - strMyName.length() - txtSMSText.length()) + ")");
         txtSMSText.addTextChangedListener(new TextWatcher()  {
 			@Override
 			public void afterTextChanged(Editable s) {
+				//imgStatus.setVisibility(View.INVISIBLE);
 				tvMessageText.setText(getResources().getString(R.string.MessageText) + " (" + String.valueOf(MAX_LENGTH_SMS - strMyName.length() - txtSMSText.length()) + ")");
 			}
  
@@ -345,9 +337,7 @@ public class MainActivity extends Activity {
 			public void onFocusChange(View v, boolean hasFocus) {
 				//Log.i(LOG_TAG, "hasFocus = " + hasFocus);
 				if ((txtPhoneNumber.length() > 0) & hasFocus){
-//					pdPNum = ProgressDialog.show(MainActivity.this, "Подождите...", "Идет определение оператора", true, false);
-					setError("Ћпределение оператора...");
-					//new getOperatorTask().execute(txtPhoneNumber.getText().toString());
+					setError("Определение оператора...");
 					new getOperatorATask().execute(txtPhoneNumber.getText().toString());
 					//new getOperatorTask().execute("9149506721");
 				}
@@ -510,8 +500,6 @@ public class MainActivity extends Activity {
 	   		imgCaptcha.setBackgroundColor(Color.alpha(0));       		
 	   	}
 	   	
-//	   	pd.dismiss();
-	   	//setError("");
 	   	imgCaptcha.setImageBitmap(img);	
 	}
 	
@@ -519,21 +507,29 @@ public class MainActivity extends Activity {
 	 * Процедура устанавливает статус отправленного сообщения
 	 */
 	public static void setMessageStatus(Boolean _status){
-		// Уничтожить окно диалого
-//    	pdSMS.dismiss();
     	
 		if (_status)
-		{    
-			//matchtoken = matcher.group(1); 
-//			imgStatus.setVisibility(View.VISIBLE);
-			//Log.v("matcher", matchtoken);
-			setError("‘ообщение доставлено на сервер.");
-		} 
-		else
 		{
-			setError("‘озможно сообщение не доставлено на сервер.");
-//			imgStatus.setImageDrawable(getResources().getDrawable(R.drawable.error));
-//			imgStatus.setVisibility(View.VISIBLE);
+			if(strTheme.compareToIgnoreCase("1") == 0)
+			{
+				imgStatus.setBackgroundResource(R.drawable.status_ok_blue);
+			} else {
+				imgStatus.setBackgroundResource(R.drawable.status_ok_white);
+			}
+			
+			imgStatus.setVisibility(View.VISIBLE);
+			setError("Сообщение для " + txtPhoneNumber.getText().toString() + " доставлено на сервер.");
+		} 
+		else if (!_status) 
+		{
+			if(strTheme.compareToIgnoreCase("1") == 0)
+			{
+				imgStatus.setBackgroundResource(R.drawable.status_no_blue);
+			} else {
+				imgStatus.setBackgroundResource(R.drawable.status_no_white);
+			}
+			setError("Возможно сообщение для " + txtPhoneNumber.getText().toString() + " не доставлено на сервер.");
+			imgStatus.setVisibility(View.VISIBLE);
 		}
 		
     	txtCaptcha1.setText("");
@@ -565,16 +561,12 @@ public class MainActivity extends Activity {
 		
 	private void setTheme(String _theme){
 		if(_theme.compareToIgnoreCase("1") == 0){
-//			buttonClean.setImageResource(R.drawable.clean_blue);
-//			buttonSelectContact.setImageResource(R.drawable.contact_blue);
-//			buttonSelectFavoritesContact.setImageResource(R.drawable.star_blue);
-//			buttonSend.setImageResource(R.drawable.send_blue);
 			
 			buttonClean.setBackgroundResource(R.drawable.clean_blue);
 			buttonSelectContact.setBackgroundResource(R.drawable.contact_blue);
 			buttonSelectFavoritesContact.setBackgroundResource(R.drawable.star_blue);
 			buttonSend.setBackgroundResource(R.drawable.send_blue);
-			imgCaptcha.setBackgroundResource(R.drawable.load_blue);
+			//imgCaptcha.setBackgroundResource(R.drawable.load_blue);
 			
 			//mainView.setBackgroundColor(color.textColor);
 			mainView.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -592,20 +584,15 @@ public class MainActivity extends Activity {
 			tv3.setTextColor(Color.parseColor("#414141"));
 			
 			TextView tv4 = (TextView) findViewById(R.id.txtError);
-			tv4.setTextColor(Color.parseColor("#414141"));
-			
+			tv4.setTextColor(Color.parseColor("#414141"));			
 			
 		} else {
-//			buttonClean.setImageResource(R.drawable.clean_white);
-//			buttonSelectContact.setImageResource(R.drawable.contact_white);
-//			buttonSelectFavoritesContact.setImageResource(R.drawable.star_white);
-//			buttonSend.setImageResource(R.drawable.send_blue);
-//			
+	
 			buttonClean.setBackgroundResource(R.drawable.clean_white);
 			buttonSelectContact.setBackgroundResource(R.drawable.contact_white);
 			buttonSelectFavoritesContact.setBackgroundResource(R.drawable.star_white);
 			buttonSend.setBackgroundResource(R.drawable.send_white);
-			imgCaptcha.setBackgroundResource(R.drawable.load_white);
+			//imgCaptcha.setBackgroundResource(R.drawable.load_white);
 			
 			mainView.setBackgroundColor(Color.parseColor("#414141"));
 			
