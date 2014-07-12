@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +19,10 @@ import android.os.AsyncTask;
 
 public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 
-	private String strCaptcha0 = "";
+	private static String strCaptcha0 = null;
+	private static String strCsrfmiddlewaretoken = null;
+	private static String strCaptcha1 = null;
+	
 	private String _cookie = "";
 	
     /** The system calls this to perform work in a worker thread and
@@ -31,42 +35,64 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 	//MainActivity ma = new MainActivity();
 	
    protected Bitmap doInBackground(String... urls) {
-       try {
-       	// Џолучаем изображение капчи в отдельном потоке
-    	if(MainActivity.getBlMagic()){
-    		new MagicClass().execute();
+       	try {
+	       	// Џолучаем изображение капчи в отдельном потоке
+	    	if(MainActivity.getBlMagic()){
+	    		strCsrfmiddlewaretoken = null;
+				strCaptcha0 = null;
+				strCaptcha1 = null;
+						
+				// загрузка страницы
+				URL url = new URL("http://188.120.235.71/getIrkSMSData.php");
+				URLConnection conn = url.openConnection();
+	
+				//MainActivity.setCoockie(_cookie);
+	               
+				InputStreamReader rd = new InputStreamReader(conn.getInputStream());
+				StringBuilder allpage = new StringBuilder();
+				int n = 0;
+				char[] buffer = new char[40000];
+				while (n >= 0)
+				{
+					n = rd.read(buffer, 0, buffer.length);
+					if (n > 0)
+					{
+						allpage.append(buffer, 0, n);                    
+					}
+				}
+				
+				System.out.println("http captcha: "+ allpage.toString());
+				
+				String _str = allpage.toString();
+				
+				StringTokenizer tokens = new StringTokenizer(_str, "|");
+				strCsrfmiddlewaretoken = tokens.nextToken();// this will contain "Fruit"
+				strCaptcha0 = tokens.nextToken();// this will contain " they taste good"
+				strCaptcha1 = tokens.nextToken();
+				
+				System.out.println("strCsrfmiddlewaretoken: "+ strCsrfmiddlewaretoken);
+				System.out.println("strCaptcha0: "+ strCaptcha0);
+				System.out.println("strCaptcha1: "+ strCaptcha1);
     		
-    		int time = 0;
-    		
-    		while ( time < 5 && MagicClass.getCaptcha0() == null ) {
-    			try {
-    			    Thread.sleep(1000);
-    			    time++;
-    			} catch(InterruptedException ex) {
-    			    Thread.currentThread().interrupt();
-    			    return null;
-    			}
-			}
-    		
-    		strCaptcha0 = MagicClass.getCaptcha0();	
-    	}
-    	else{
-    		strCaptcha0 = GetCaptchaPath(urls[0]);
-    	}
-    	
-    	MainActivity.setCaptcha0(strCaptcha0);
-			//return getImageByUrl("http://irk.ru/captcha/image/" + strCaptcha0);
-       	Bitmap img = getImageByUrl("http://irk.ru/captcha/image/" + strCaptcha0);
-			
-       	if(MainActivity.getBlClean()){
-       		//imgCaptcha.setBackgroundColor(Color.WHITE);
-       		//imgCaptcha.setImageBitmap(invert(CleanImage(CleanImage(adjustedContrast(invert(result),300)))));
-       		//new getCapthaTask().execute(img);
-       		return invert(CleanImage(CleanImage(adjustedContrast(invert(img),300))));
-       	}
-       	else{
-       		return img;
-       	}
+				//strCaptcha0 = MagicClass.getCaptcha0();	
+				
+	    	}
+	    	else{
+	    		strCaptcha0 = GetCaptchaPath(urls[0]);
+	    	}
+	    	
+	    	System.out.println("Download strCaptcha0: "+ strCaptcha0);
+	    	
+	    	MainActivity.setCaptcha0(strCaptcha0);
+
+	       	Bitmap img = getImageByUrl("http://irk.ru/captcha/image/" + strCaptcha0);
+				
+	       	if(MainActivity.getBlClean()){
+	       		return invert(CleanImage(CleanImage(adjustedContrast(invert(img),300))));
+	       	}
+	       	else{
+	       		return img;
+	       	}
        	
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -230,16 +256,22 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 			// Save Cookie
 			String headerName = null;
 			//_cookies.clear();
-			if (MainActivity.getCoockie() == "") {
-				for (int i=1; (headerName = conn.getHeaderFieldKey(i))!=null; i++) {
-					if (headerName.equalsIgnoreCase("Set-Cookie")) 
-					{    
-						String cookie = conn.getHeaderField(i);
-						this._cookie += cookie.substring(0,cookie.indexOf(";")) + "; ";
+			if(MainActivity.getBlMagic()){
+				MainActivity.setCoockie("csrftoken=" + strCsrfmiddlewaretoken + "; p=\"twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1\"");
+				MainActivity.setCsrfmiddlewaretoken(strCsrfmiddlewaretoken);
+			} else {
+			
+				if (MainActivity.getCoockie() == "") {
+					for (int i=1; (headerName = conn.getHeaderFieldKey(i))!=null; i++) {
+						if (headerName.equalsIgnoreCase("Set-Cookie")) 
+						{    
+							String cookie = conn.getHeaderField(i);
+							this._cookie += cookie.substring(0,cookie.indexOf(";")) + "; ";
+						}
 					}
+					
+					MainActivity.setCoockie(_cookie); //csrftoken=nVrFLgC1Q91pKaOrNB0qtetTxRVMZw7E; p="twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1"; 
 				}
-				
-				MainActivity.setCoockie(_cookie);
 			}
                
 			InputStreamReader rd = new InputStreamReader(conn.getInputStream());
@@ -278,23 +310,10 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
    }
 	*/
    protected void onPostExecute(Bitmap result) {
-   	//pd.dismiss();        
-   	
-//   	if(ma.getBlClean()){
-//   		imgCaptcha.setBackgroundColor(Color.WHITE);
-//   		//imgCaptcha.setImageBitmap(invert(CleanImage(CleanImage(adjustedContrast(invert(result),300)))));
-//   	}
-//   	else{
-//   		imgCaptcha.setBackgroundColor(Color.alpha(0));       		
-//   	}
-//   	
-//   	imgCaptcha.setImageBitmap(result);
-	   
 	   MainActivity.setBitmapCaptcha(result);
-	   //MainActivity.setError("");
-//       imgStatus.setVisibility(View.INVISIBLE);
-    // “ничтожить окно диалого
-   	//dismissDialog(PROGRESS_DLG_ID);
+	   if(MainActivity.getBlMagic()){
+		   MainActivity.setCaptcha1(strCaptcha1);
+	   }
    }
 
 }

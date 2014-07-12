@@ -1,14 +1,9 @@
 package ru.diesel_ru.irkrusmser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.StringTokenizer;
 
 import android.os.AsyncTask;
 
@@ -17,40 +12,51 @@ public class MagicClass extends AsyncTask<String, Void, String> {
 	private static String strCsrfmiddlewaretoken = null;
 	private static String strCaptcha1 = null;
 	
-	protected String doInBackground(String... _urls) {
-		try {  			
-   			//String url = "http://www.irk.ru/sms/check/?number=" + _phone;
-   			
-   			HttpClient client = new DefaultHttpClient();
-   			HttpGet request = new HttpGet(_urls[0]);
-   		 
-   			// add request header
-   			request.addHeader("User-Agent", MainActivity.USER_AGENT);
-   			HttpResponse response = client.execute(request);
-   		 
-//   			System.out.println("Response Code : "  + response.getStatusLine().getStatusCode());
-   		 
-   			BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-   		 
-   			StringBuffer result = new StringBuffer();
-   			String line = "";
-   			while ((line = rd.readLine()) != null) {
-   				result.append(line);
-   			}
-   			
-   			//Log.d(LOG_TAG, "allpage = " + allpage.toString());
-   			//return allpage.toString();
-   			//System.out.println(result.toString());
-   			return result.toString();
-   			
-			} catch (ClientProtocolException e) {
-				e.printStackTrace();
-				//Log.d(LOG_TAG, "e1 = " + e.getMessage());
-				return e.getMessage();
-			} catch (IOException e) {
-				e.printStackTrace();
-				//Log.d(LOG_TAG, "e2 = " + e.getMessage());
-				return e.getMessage();
+	protected String doInBackground(String... _urls) {			
+			try
+			{
+				strCsrfmiddlewaretoken = null;
+				strCaptcha0 = null;
+				strCaptcha1 = null;
+						
+				// загрузка страницы
+				URL url = new URL("http://188.120.235.71/getIrkSMSData.php");
+				URLConnection conn = url.openConnection();
+
+				//MainActivity.setCoockie(_cookie);
+	               
+				InputStreamReader rd = new InputStreamReader(conn.getInputStream());
+				StringBuilder allpage = new StringBuilder();
+				int n = 0;
+				char[] buffer = new char[40000];
+				while (n >= 0)
+				{
+					n = rd.read(buffer, 0, buffer.length);
+					if (n > 0)
+					{
+						allpage.append(buffer, 0, n);                    
+					}
+				}
+				
+				System.out.println("http captcha: "+ allpage.toString());
+				
+				String _str = allpage.toString();
+				
+				StringTokenizer tokens = new StringTokenizer(_str, "|");
+				strCsrfmiddlewaretoken = tokens.nextToken();// this will contain "Fruit"
+				strCaptcha0 = tokens.nextToken();// this will contain " they taste good"
+				strCaptcha1 = tokens.nextToken();
+				
+				System.out.println("strCsrfmiddlewaretoken: "+ strCsrfmiddlewaretoken);
+				System.out.println("strCaptcha0: "+ strCaptcha0);
+				System.out.println("strCaptcha1: "+ strCaptcha1);
+				
+				return strCaptcha1;
+			}
+			catch (Exception e)
+			{
+				System.out.println("http captcha: "+ e.getMessage());
+				return e.getMessage().toString();
 			}
 	}
 
@@ -62,8 +68,9 @@ public class MagicClass extends AsyncTask<String, Void, String> {
         showDialog(PROGRESS_DLG_ID);
    }
 	*/
-   protected void onPostExecute(String result) {	   
-	   MainActivity.setCaptcha0(result);	   
+   protected void onPostExecute(String result) {
+	   //System.out.println("Magic result: "+ result);
+	   //MainActivity.setCaptcha1(result);	   
    }
    
    public static String getCaptcha0(){
