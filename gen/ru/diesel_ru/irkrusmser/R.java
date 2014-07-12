@@ -50,7 +50,7 @@ public final class R {
     }
     public static final class id {
         public static final int abaut=0x7f0b0000;
-        public static final int admobLayout=0x7f0b0004;
+        public static final int admobLayout=0x7f0b0002;
         public static final int btnClean=0x7f0b000b;
         public static final int btnContacts=0x7f0b0007;
         public static final int btnFContacts=0x7f0b0008;
@@ -64,8 +64,8 @@ public final class R {
         public static final int mainView=0x7f0b0001;
         public static final int menu_abaut=0x7f0b0014;
         public static final int menu_settings=0x7f0b0013;
-        public static final int rl=0x7f0b0003;
-        public static final int scrollView1=0x7f0b0002;
+        public static final int rl=0x7f0b0004;
+        public static final int scrollView1=0x7f0b0003;
         public static final int textView1=0x7f0b0005;
         public static final int textView2=0x7f0b0009;
         public static final int textView3=0x7f0b000c;
