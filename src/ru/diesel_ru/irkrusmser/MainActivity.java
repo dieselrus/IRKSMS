@@ -2,15 +2,19 @@ package ru.diesel_ru.irkrusmser;
 
 import java.io.File;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ru.diesel_ru.irkrusmser.R;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -35,7 +39,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
+import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
 
@@ -43,7 +50,8 @@ public class MainActivity extends Activity {
 	protected static final int PICK_RESULT = 0;
 	protected static final int ReqCodeContact = 0;
 	static final private int PHONE_NUMBER = 3;
-	static String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2"; 
+	static String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2";
+	static Account[] AccountList;
 	
 	static TextView txtPhoneNumber;
 	TextView txtSMSText;
@@ -146,6 +154,9 @@ public class MainActivity extends Activity {
         
         strTheme = sp.getString("Theme", "1");
         
+        AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        AccountList = manager.getAccounts();
+        
         // Очищаем кэш приложения
         if(blCleaningCache)     
 	        clearApplicationData();
@@ -155,8 +166,8 @@ public class MainActivity extends Activity {
         
         //Создание adView ca-app-pub-9670568035952143/5674883316
         //adView = new AdView(this, AdSize.BANNER, "a1510fa3b8c4d5e");
-        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-6935822903770431/6554126304");
-        										    
+        //adView = new AdView(this, AdSize.BANNER, "ca-app-pub-6935822903770431/6554126304"); dieselsoft38
+        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-9766418574743996/6181139065"); // dsoft38										    
         // Поиск в LinearLayout (предполагается, что был назначен
         // атрибут android:id="@+id/mainLayout"
         LinearLayout layout = (LinearLayout)findViewById(R.id.admobLayout);
@@ -166,6 +177,23 @@ public class MainActivity extends Activity {
 
         // Инициирование общего запроса на загрузку вместе с объявлением
         adView.loadAd(new AdRequest());
+        
+        adView.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v) {
+        		long unixTime = System.currentTimeMillis() / 1000L;
+
+        		longMagicDate = unixTime;
+        		System.out.println("longMagicDate: " + unixTime);
+        		Editor e = sp.edit();
+        		e.putLong("MagicDate", unixTime);
+        		e.commit();
+        	}
+        });
+        
+
+        AdRequest adRequest = new AdRequest();
+        adRequest.addTestDevice(AdRequest.TEST_EMULATOR);         // Эмулятор
+        adRequest.addTestDevice("064b623e0acc9b4c");              // Тестовое устройство Android
         
         
         //isOnline();
@@ -622,5 +650,42 @@ public class MainActivity extends Activity {
 			tv4.setTextColor(Color.parseColor("#ffffff"));
 			
 		}
+	}
+	
+	public class Advertisement implements AdListener{
+
+	    // more code here
+
+	    @Override
+	    public void onDismissScreen(Ad arg0) {
+	        mainView.removeView(adView);
+	    }
+
+		@Override
+		public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onLeaveApplication(Ad arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onPresentScreen(Ad arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onReceiveAd(Ad arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	    // more code here
+
 	}
 }

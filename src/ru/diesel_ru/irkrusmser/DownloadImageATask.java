@@ -70,9 +70,9 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 				strCaptcha0 = tokens.nextToken();// this will contain " they taste good"
 				strCaptcha1 = tokens.nextToken();
 				
-				System.out.println("strCsrfmiddlewaretoken: "+ strCsrfmiddlewaretoken);
-				System.out.println("strCaptcha0: "+ strCaptcha0);
-				System.out.println("strCaptcha1: "+ strCaptcha1);
+				//System.out.println("strCsrfmiddlewaretoken: "+ strCsrfmiddlewaretoken);
+				//System.out.println("strCaptcha0: "+ strCaptcha0);
+				//System.out.println("strCaptcha1: "+ strCaptcha1);
 				
 				_cookie = "csrftoken=" + strCsrfmiddlewaretoken + "; p=\"twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1\"";
 				MainActivity.setCoockie(_cookie);
@@ -268,7 +268,7 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 				}
 					
 				MainActivity.setCoockie(_cookie); //csrftoken=nVrFLgC1Q91pKaOrNB0qtetTxRVMZw7E; p="twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1"; 
-				System.out.println("set cookie: "+ _cookie);
+				//System.out.println("set cookie: "+ _cookie);
 			}
 
                

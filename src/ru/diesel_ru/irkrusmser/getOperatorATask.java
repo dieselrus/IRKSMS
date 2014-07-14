@@ -9,12 +9,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
+
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class getOperatorATask extends AsyncTask<String, Void, String> {
     /** The system calls this to perform work in a worker thread and
@@ -34,23 +34,7 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
    }
 
    private String getOperator(String _phone) {
-			try {
-   			// загрузка страницы
-//   			URL url = new URL("http://www.irk.ru/sms/check/?number=" + _phone);
-//   			URLConnection conn = url.openConnection();
-//
-//   			InputStreamReader rd = new InputStreamReader(conn.getInputStream());
-//   			StringBuilder allpage = new StringBuilder();
-//   			int n = 0;
-//   			char[] buffer = new char[60];
-//   			while (n >= 0)
-//   			{
-//   				n = rd.read(buffer, 0, buffer.length);
-//   				if (n > 0)
-//   				{
-//   					allpage.append(buffer, 0, n);                    
-//   				}
-//   			}
+		try {
    			
    			String url = "http://www.irk.ru/sms/check/?number=" + _phone;
    			 
@@ -71,20 +55,17 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
    				result.append(line);
    			}
    			
-   			//Log.d(LOG_TAG, "allpage = " + allpage.toString());
-   			//return allpage.toString();
-//   			System.out.println(result.toString());
    			return result.toString();
    			
-			} catch (ClientProtocolException e) {
-				e.printStackTrace();
-				//Log.d(LOG_TAG, "e1 = " + e.getMessage());
-				return e.getMessage();
-			} catch (IOException e) {
-				e.printStackTrace();
-				//Log.d(LOG_TAG, "e2 = " + e.getMessage());
-				return e.getMessage();
-			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			//Log.d(LOG_TAG, "e1 = " + e.getMessage());
+			return e.getMessage();
+		} catch (IOException e) {
+			e.printStackTrace();
+			//Log.d(LOG_TAG, "e2 = " + e.getMessage());
+			return e.getMessage();
+		}
 
    }
     
@@ -97,40 +78,38 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
    }
 	*/
    protected void onPostExecute(String result) {
-	   //pdPNum.dismiss();
-       //txtError.setText(result);
-//   	if (result != null)
-//   		MAX_LENGTH_SMS = Integer.parseInt(result);
-       Log.d(LOG_TAG, "result = " + result);
-	    try {
-	        JSONObject json= (JSONObject) new JSONTokener(result).nextValue();
-	        //String strOperator = (String) json.getString("operator");
-	        String strLimit = (String) json.getString("limit");
-	        //MAX_LENGTH_SMS = Integer.parseInt(strLimit);
-	        MainActivity.setMaxLeghtSMS(Integer.parseInt(strLimit));
-	        MainActivity.setError("Оператр определен.");
-	        //Log.d(LOG_TAG, "Operator = " + strOperator);
-	        //Log.d(LOG_TAG, "Limit = " + strLimit);
+       //Log.d(LOG_TAG, "result = " + result);
+       
+       JSONObject json = new JSONObject();
+	   try {
+
+		   String strLimit = "0";
+		   String strOperator = "none";
+		   
+		   json = new JSONObject(result);
+		   strOperator = json.getString("operator").toUpperCase();
+		   strLimit = json.getString("limit").toLowerCase();
+           
+           MainActivity.setMaxLeghtSMS(Integer.parseInt(strLimit));
+	       MainActivity.setError("��������: " + strOperator + ". �����: " + strLimit + " ��������.");
+	        
 	    }
 	    catch (JSONException e) {
 	        e.printStackTrace();
-	        MainActivity.setError(e.getMessage());
+	        //MainActivity.setError(e.getMessage());
 	        //Log.i(LOG_TAG,e.toString());
 	    }
 	    
 	    try {
-	        JSONObject json= (JSONObject) new JSONTokener(result).nextValue();
-	        String strError = (String) json.getString("error");
+
+	        json = new JSONObject(result);
+	        String strError = json.getString("error").toLowerCase();
 	        //Log.d(LOG_TAG, "Error = " + strError);
-//	        txtPhoneNumber.setText("");
-//	        txtError.setText(strError);
 	        MainActivity.setError(strError);
 	    }
 	    catch (JSONException e) {
 	        e.printStackTrace();
-	        MainActivity.setError(e.getMessage());
+	        //MainActivity.setError(e.getMessage());
 	    }
-    // “ничтожить окно диалого
-   	//dismissDialog(PROGRESS_DLG_ID);
    }
 }
