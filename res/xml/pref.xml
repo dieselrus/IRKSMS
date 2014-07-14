@@ -14,12 +14,12 @@
 		
 		<CheckBoxPreference
 		    android:key="Clean"
-		    android:summary="Очистка изображения пин-кода.(Тестовый режим)"
-		    android:title="Очистка изображения (test)"/>
+		    android:summary="Очистка изображения пин-кода."
+		    android:title="Очистка изображения"/>
 		<CheckBoxPreference
 		    android:key="Magic"
-		    android:title="Автораспознование пин-кода (test)"
-		    android:summary="Автоматическое распознование пин-кода. Для использования необходимо раз в сутки перейти по рекламе.(Тестовый режим)"/>
+		    android:title="Автораспознование пин-кода"
+		    android:summary="Автоматическое распознование пин-кода. Для получения доступа на 24 часа необходимо перейти по рекламе.(Тестовый режим)"/>
 
 	</PreferenceCategory>	
 	

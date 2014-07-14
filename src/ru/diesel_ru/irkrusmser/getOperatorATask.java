@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 public class getOperatorATask extends AsyncTask<String, Void, String> {
@@ -77,7 +78,8 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
         showDialog(PROGRESS_DLG_ID);
    }
 	*/
-   protected void onPostExecute(String result) {
+@SuppressLint("DefaultLocale")
+protected void onPostExecute(String result) {
        //Log.d(LOG_TAG, "result = " + result);
        
        JSONObject json = new JSONObject();
@@ -91,7 +93,7 @@ public class getOperatorATask extends AsyncTask<String, Void, String> {
 		   strLimit = json.getString("limit").toLowerCase();
            
            MainActivity.setMaxLeghtSMS(Integer.parseInt(strLimit));
-	       MainActivity.setError("Оператор: " + strOperator + ". Лимит: " + strLimit + " символов.");
+	       MainActivity.setError("РћРїРµСЂР°С‚РѕСЂ: " + strOperator + ". Р›РёРјРёС‚: " + strLimit + " СЃРёРјРІРѕР»РѕРІ.");
 	        
 	    }
 	    catch (JSONException e) {

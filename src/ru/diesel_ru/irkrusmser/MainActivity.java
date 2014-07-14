@@ -2,7 +2,6 @@ package ru.diesel_ru.irkrusmser;
 
 import java.io.File;
 
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,11 +41,10 @@ import android.widget.Toast;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
-import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AdListener {
 	protected static final int PICK_RESULT = 0;
 	protected static final int ReqCodeContact = 0;
 	static final private int PHONE_NUMBER = 3;
@@ -67,7 +65,7 @@ public class MainActivity extends Activity {
 	static ImageView imgStatus;
 	LinearLayout mainView;
 	
-	AdView adView;
+	private AdView adView;
 	
     private static String _cookie = "";
     private static String strCaptcha0 = "";
@@ -155,7 +153,11 @@ public class MainActivity extends Activity {
         strTheme = sp.getString("Theme", "1");
         
         AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        AccountList = manager.getAccounts();
+        try {
+        	AccountList = manager.getAccounts();
+		} catch (Exception e) {
+			AccountList = null;
+		}
         
         // Очищаем кэш приложения
         if(blCleaningCache)     
@@ -163,11 +165,14 @@ public class MainActivity extends Activity {
         
         new ConnectivityReceiver();
         
-        
         //Создание adView ca-app-pub-9670568035952143/5674883316
         //adView = new AdView(this, AdSize.BANNER, "a1510fa3b8c4d5e");
         //adView = new AdView(this, AdSize.BANNER, "ca-app-pub-6935822903770431/6554126304"); dieselsoft38
-        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-9766418574743996/6181139065"); // dsoft38										    
+        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-9766418574743996/6181139065"); // dsoft38	
+        
+        // Set the AdListener.
+        adView.setAdListener(this);
+        
         // Поиск в LinearLayout (предполагается, что был назначен
         // атрибут android:id="@+id/mainLayout"
         LinearLayout layout = (LinearLayout)findViewById(R.id.admobLayout);
@@ -175,26 +180,13 @@ public class MainActivity extends Activity {
         // Добавление adView
         layout.addView(adView);
 
-        // Инициирование общего запроса на загрузку вместе с объявлением
-        adView.loadAd(new AdRequest());
-        
-        adView.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		long unixTime = System.currentTimeMillis() / 1000L;
-
-        		longMagicDate = unixTime;
-        		System.out.println("longMagicDate: " + unixTime);
-        		Editor e = sp.edit();
-        		e.putLong("MagicDate", unixTime);
-        		e.commit();
-        	}
-        });
-        
-
         AdRequest adRequest = new AdRequest();
         adRequest.addTestDevice(AdRequest.TEST_EMULATOR);         // Эмулятор
         adRequest.addTestDevice("064b623e0acc9b4c");              // Тестовое устройство Android
+        adRequest.addTestDevice("E2C29F0145A0BFFBC0EF9BF36D436253"); // nexus 5
         
+        // Инициирование общего запроса на загрузку вместе с объявлением
+        adView.loadAd(new AdRequest());
         
         //isOnline();
         // найдем View-элементы
@@ -652,40 +644,55 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	public class Advertisement implements AdListener{
+	  /** Called when an ad is clicked and about to return to the application. */
+	@Override
+	  public void onDismissScreen(Ad ad) {
+	    //Log.d(LOG_TAG, "onDismissScreen");
+	    //Toast.makeText(this, "onDismissScreen", Toast.LENGTH_SHORT).show();
+	  }
 
-	    // more code here
+	  /** Called when an ad was not received. */
+	  @Override
+	  public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode error) {
+	    //String message = "onFailedToReceiveAd (" + error + ")";
+	    //Log.d(LOG_TAG, message);
+	    //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+	  }
 
-	    @Override
-	    public void onDismissScreen(Ad arg0) {
-	        mainView.removeView(adView);
-	    }
+	  /**
+	   * Called when an ad is clicked and going to start a new Activity that will
+	   * leave the application (e.g. breaking out to the Browser or Maps
+	   * application).
+	   */
+	  @Override
+	  public void onLeaveApplication(Ad ad) {
+	    //Log.d(LOG_TAG, "onLeaveApplication");
+	    //Toast.makeText(this, "onLeaveApplication", Toast.LENGTH_SHORT).show();
+	  }
 
-		@Override
-		public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
-			// TODO Auto-generated method stub
-			
-		}
+	  /**
+	   * Called when an Activity is created in front of the app (e.g. an
+	   * interstitial is shown, or an ad is clicked and launches a new Activity).
+	   */
+	  @Override
+	  public void onPresentScreen(Ad ad) {
+	    //Log.d(LOG_TAG, "onPresentScreen");
+	    //Toast.makeText(this, "onPresentScreen", Toast.LENGTH_SHORT).show();
+	    
+	    long unixTime = System.currentTimeMillis() / 1000L + 24 * 60 * 60;
 
-		@Override
-		public void onLeaveApplication(Ad arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+		longMagicDate = unixTime;
+		//System.out.println("longMagicDate: " + unixTime);
+		Editor e = sp.edit();
+		e.putLong("MagicDate", unixTime);
+		e.commit();
+	  }
 
-		@Override
-		public void onPresentScreen(Ad arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onReceiveAd(Ad arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-	    // more code here
-
-	}
+	  /** Called when an ad is received. */
+	  @Override
+	  public void onReceiveAd(Ad ad) {
+	    //Log.d(LOG_TAG, "onReceiveAd");
+	    //Toast.makeText(this, "onReceiveAd", Toast.LENGTH_SHORT).show();
+	  }
 }
+	
