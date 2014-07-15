@@ -54,9 +54,10 @@ public class SendSMSATask extends AsyncTask<String, Void, String> {
 		connection.setRequestMethod("POST");
                 
 		// If cookie exists, then send cookie
-		System.out.println("cookie1: "+ _cookie);
+		//System.out.println("Data: "+ data);
+		//System.out.println("cookie1: "+ _cookie);
 		_cookie = MainActivity.getCoockie();
-		System.out.println("cookie2: "+ _cookie);
+		//System.out.println("cookie2: "+ _cookie);
 		
 		if (_cookie != "") 
 		{
@@ -65,8 +66,8 @@ public class SendSMSATask extends AsyncTask<String, Void, String> {
 			connection.connect();
 		}
           
-		System.out.println("cookie3: "+ _cookie);
-		System.out.println("data: "+ _cookie);
+		//System.out.println("cookie3: "+ _cookie);
+		//System.out.println("data: "+ _cookie);
 		
 		// If Post Data not empty, then send POST Data
 		if (data != "") 
@@ -79,7 +80,7 @@ public class SendSMSATask extends AsyncTask<String, Void, String> {
 		}
         
 		int status = connection.getResponseCode();
-		System.out.println("status: "+status);
+		//System.out.println("status: "+status);
 		
 		// Save Cookie
 		//BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));

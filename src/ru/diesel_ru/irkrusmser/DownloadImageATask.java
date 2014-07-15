@@ -261,7 +261,7 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 			// Save Cookie
 			String headerName = null;
 			//_cookies.clear();
-			if (MainActivity.getCoockie() == "") {
+			//if (MainActivity.getCoockie() == "") {
 				for (int i=1; (headerName = conn.getHeaderFieldKey(i))!=null; i++) {
 					if (headerName.equalsIgnoreCase("Set-Cookie")) 
 					{    
@@ -272,7 +272,7 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 					
 				MainActivity.setCoockie(_cookie); //csrftoken=nVrFLgC1Q91pKaOrNB0qtetTxRVMZw7E; p="twc=1\073tct=0:1\073wl=1\073tcs=0\073tws=0\073tww=0\073tc=0\073ct=1"; 
 				//System.out.println("set cookie: "+ _cookie);
-			}
+			//}
 
                
 			InputStreamReader rd = new InputStreamReader(conn.getInputStream());

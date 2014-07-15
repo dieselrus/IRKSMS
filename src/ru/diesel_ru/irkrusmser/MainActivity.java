@@ -261,7 +261,7 @@ public class MainActivity extends Activity implements AdListener {
         			String data_s = "";
         			
         			// Состояние автораспознования
-        			if(MainActivity.getBlMagic()){
+        			if(MainActivity.getBlMagic() && longMagicDate > System.currentTimeMillis() / 1000L){
         				data_s = "csrfmiddlewaretoken=" + strCsrfmiddlewaretoken + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
         			} else {
         				data_s = "csrfmiddlewaretoken=" + GetToken(_cookie) + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
