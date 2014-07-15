@@ -1,4 +1,4 @@
-package ru.diesel_ru.irkrusmser;
+package ru.diesel_ru.irksms;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ru.diesel_ru.irkrusmser;
+package ru.diesel_ru.irksms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

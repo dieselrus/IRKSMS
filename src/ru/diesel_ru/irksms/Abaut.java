@@ -1,6 +1,6 @@
-package ru.diesel_ru.irkrusmser;
+package ru.diesel_ru.irksms;
 
-import ru.diesel_ru.irkrusmser.R;
+import ru.diesel_ru.irksms.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
