@@ -168,8 +168,9 @@ public class MainActivity extends Activity implements AdListener {
         //Создание adView ca-app-pub-9670568035952143/5674883316
         //adView = new AdView(this, AdSize.BANNER, "a1510fa3b8c4d5e");
         //adView = new AdView(this, AdSize.BANNER, "ca-app-pub-6935822903770431/6554126304"); dieselsoft38
-        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-9766418574743996/6181139065"); // dsoft38	
-        
+        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-5746276866995380/6444903756"); // denisgamza@yandex.ru
+        //  ca-app-pub-5746276866995380/6444903756
+
         // Set the AdListener.
         adView.setAdListener(this);
         
@@ -183,7 +184,7 @@ public class MainActivity extends Activity implements AdListener {
         AdRequest adRequest = new AdRequest();
         adRequest.addTestDevice(AdRequest.TEST_EMULATOR);         // Эмулятор
         adRequest.addTestDevice("064b623e0acc9b4c");              // Тестовое устройство Android
-        adRequest.addTestDevice("E2C29F0145A0BFFBC0EF9BF36D436253"); // nexus 5
+        //adRequest.addTestDevice("E2C29F0145A0BFFBC0EF9BF36D436253"); // nexus 5
         
         // Инициирование общего запроса на загрузку вместе с объявлением
         adView.loadAd(new AdRequest());
