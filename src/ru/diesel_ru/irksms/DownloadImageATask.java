@@ -40,7 +40,8 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
     		//System.out.println("longMagic = " + MainActivity.getlongMagic());
     		
 	       	// Џолучаем изображение капчи в отдельном потоке
-	    	if(MainActivity.getBlMagic() && MainActivity.getlongMagic() > System.currentTimeMillis() / 1000L){
+	    	//if(MainActivity.getBlMagic() && MainActivity.getlongMagic() > System.currentTimeMillis() / 1000L){
+	    	if(MainActivity.getBlMagic()){
 	    		strCsrfmiddlewaretoken = null;
 				strCaptcha0 = null;
 				strCaptcha1 = null;
@@ -312,7 +313,8 @@ public class DownloadImageATask extends AsyncTask<String, Void, Bitmap> {
 	*/
    protected void onPostExecute(Bitmap result) {
 	   MainActivity.setBitmapCaptcha(result);
-	   if(MainActivity.getBlMagic() && MainActivity.getlongMagic() > System.currentTimeMillis() / 1000L){
+	   //if(MainActivity.getBlMagic() && MainActivity.getlongMagic() > System.currentTimeMillis() / 1000L){
+	   if(MainActivity.getBlMagic()){
 		   MainActivity.setCaptcha1(strCaptcha1);
 	   }
    }

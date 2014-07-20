@@ -13,7 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -38,13 +38,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.ads.Ad;
-import com.google.ads.AdListener;
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
-
-public class MainActivity extends Activity implements AdListener {
+public class MainActivity extends Activity {
 	protected static final int PICK_RESULT = 0;
 	protected static final int ReqCodeContact = 0;
 	static final private int PHONE_NUMBER = 3;
@@ -65,7 +59,7 @@ public class MainActivity extends Activity implements AdListener {
 	static ImageView imgStatus;
 	LinearLayout mainView;
 	
-	private AdView adView;
+	//private AdView adView;
 	
     private static String _cookie = "";
     private static String strCaptcha0 = "";
@@ -168,26 +162,26 @@ public class MainActivity extends Activity implements AdListener {
         //Создание adView ca-app-pub-9670568035952143/5674883316
         //adView = new AdView(this, AdSize.BANNER, "a1510fa3b8c4d5e");
         //adView = new AdView(this, AdSize.BANNER, "ca-app-pub-6935822903770431/6554126304"); dieselsoft38
-        adView = new AdView(this, AdSize.BANNER, "ca-app-pub-5746276866995380/6444903756"); // denisgamza@yandex.ru
+        //adView = new AdView(this, AdSize.BANNER, "ca-app-pub-5746276866995380/6444903756"); // denisgamza@yandex.ru
         //  ca-app-pub-5746276866995380/6444903756
 
         // Set the AdListener.
-        adView.setAdListener(this);
+        //adView.setAdListener(this);
         
         // Поиск в LinearLayout (предполагается, что был назначен
         // атрибут android:id="@+id/mainLayout"
-        LinearLayout layout = (LinearLayout)findViewById(R.id.admobLayout);
+        //LinearLayout layout = (LinearLayout)findViewById(R.id.admobLayout);
 
         // Добавление adView
-        layout.addView(adView);
+        //layout.addView(adView);
 
-        AdRequest adRequest = new AdRequest();
-        adRequest.addTestDevice(AdRequest.TEST_EMULATOR);         // Эмулятор
-        adRequest.addTestDevice("064b623e0acc9b4c");              // Тестовое устройство Android
+        //AdRequest adRequest = new AdRequest();
+       // adRequest.addTestDevice(AdRequest.TEST_EMULATOR);         // Эмулятор
+        //adRequest.addTestDevice("064b623e0acc9b4c");              // Тестовое устройство Android
         //adRequest.addTestDevice("E2C29F0145A0BFFBC0EF9BF36D436253"); // nexus 5
         
         // Инициирование общего запроса на загрузку вместе с объявлением
-        adView.loadAd(new AdRequest());
+        //adView.loadAd(new AdRequest());
         
         //isOnline();
         // найдем View-элементы
@@ -262,7 +256,8 @@ public class MainActivity extends Activity implements AdListener {
         			String data_s = "";
         			
         			// Состояние автораспознования
-        			if(MainActivity.getBlMagic() && longMagicDate > System.currentTimeMillis() / 1000L){
+        			//if(MainActivity.getBlMagic() && longMagicDate > System.currentTimeMillis() / 1000L){
+        			if(MainActivity.getBlMagic()){	
         				data_s = "csrfmiddlewaretoken=" + strCsrfmiddlewaretoken + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
         			} else {
         				data_s = "csrfmiddlewaretoken=" + GetToken(_cookie) + "&number=" + txtPhoneNumber.getText() + "&message=" + txtSMSText.getText() + "\n" + strMyName + "&captcha_0=" + strCaptcha0 + "&captcha_1=" + txtCaptcha1.getText();
@@ -289,7 +284,7 @@ public class MainActivity extends Activity implements AdListener {
         		}
         	}
         });
-        
+       
         // Обработчик нажатия на капчу (обновление капчи)
         imgCaptcha.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
@@ -644,56 +639,5 @@ public class MainActivity extends Activity implements AdListener {
 			
 		}
 	}
-	
-	  /** Called when an ad is clicked and about to return to the application. */
-	@Override
-	  public void onDismissScreen(Ad ad) {
-	    //Log.d(LOG_TAG, "onDismissScreen");
-	    //Toast.makeText(this, "onDismissScreen", Toast.LENGTH_SHORT).show();
-	  }
-
-	  /** Called when an ad was not received. */
-	  @Override
-	  public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode error) {
-	    //String message = "onFailedToReceiveAd (" + error + ")";
-	    //Log.d(LOG_TAG, message);
-	    //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-	  }
-
-	  /**
-	   * Called when an ad is clicked and going to start a new Activity that will
-	   * leave the application (e.g. breaking out to the Browser or Maps
-	   * application).
-	   */
-	  @Override
-	  public void onLeaveApplication(Ad ad) {
-	    //Log.d(LOG_TAG, "onLeaveApplication");
-	    //Toast.makeText(this, "onLeaveApplication", Toast.LENGTH_SHORT).show();
-	  }
-
-	  /**
-	   * Called when an Activity is created in front of the app (e.g. an
-	   * interstitial is shown, or an ad is clicked and launches a new Activity).
-	   */
-	  @Override
-	  public void onPresentScreen(Ad ad) {
-	    //Log.d(LOG_TAG, "onPresentScreen");
-	    //Toast.makeText(this, "onPresentScreen", Toast.LENGTH_SHORT).show();
-	    
-	    long unixTime = System.currentTimeMillis() / 1000L + 24 * 60 * 60;
-
-		longMagicDate = unixTime;
-		//System.out.println("longMagicDate: " + unixTime);
-		Editor e = sp.edit();
-		e.putLong("MagicDate", unixTime);
-		e.commit();
-	  }
-
-	  /** Called when an ad is received. */
-	  @Override
-	  public void onReceiveAd(Ad ad) {
-	    //Log.d(LOG_TAG, "onReceiveAd");
-	    //Toast.makeText(this, "onReceiveAd", Toast.LENGTH_SHORT).show();
-	  }
 }
 	
